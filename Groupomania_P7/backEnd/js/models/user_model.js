@@ -1,10 +1,11 @@
 const Sequelize = require('sequelize');
 const db        = require('../../config/db');
+const bcrypt    = require("bcrypt");
 
 // ===================================================
 //                 User Model
 // ===================================================
-const user = db.define('user', 
+const userSchema = db.define('users', 
 {
     id : 
     {
@@ -40,17 +41,39 @@ const user = db.define('user',
         type            : Sequelize.DataTypes.STRING,
         defaultValue    : "../../resources/default_avatar.png",
         allowNull       : true
-    },
-    moderator : 
+    }
+},
+{
+    hooks: 
     {
-        type            : Sequelize.DataTypes.BOOLEAN,
-        defaultValue    : false,
-        allowNull       : false
+        beforeCreate: async (user) => 
+        {
+            if (user.password) 
+            {
+                const salt = await bcrypt.genSaltSync(10, 'a');
+                user.password = bcrypt.hashSync(user.password, salt);
+            }
+        },
+        beforeUpdate:async (user) => 
+        {
+            if (user.password) 
+            {
+                const salt = await bcrypt.genSaltSync(10, 'a');
+                user.password = bcrypt.hashSync(user.password, salt);
+            }
+        }
     },
 
+    instanceMethods: 
+    {
+        validPassword: (password) => 
+        {
+            return bcrypt.compareSync(password, this.password);
+        }
+    }
 });
 
 // ===================================================
 //                 User Export
 // ===================================================
-module.exports = user;
+module.exports = userSchema ;

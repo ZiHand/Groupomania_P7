@@ -10,3 +10,5 @@ npm i sequelize
 npm i dotenv
 // - Install joi : Datas validation
 npm i joi
+// - Install bcrypt : Datas encryption
+npm i bcrypt
