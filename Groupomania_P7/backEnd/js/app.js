@@ -1,8 +1,8 @@
-const express       = require('express');
-const cookieParser  = require('cookie-parser');
-const routes        = require('./routes/user_routes');
-const db            = require('../config/db');
-const {checkUser}   = require('./middlewares/auth_middleware');
+const express                   = require('express');
+const cookieParser              = require('cookie-parser');
+const routes                    = require('./routes/user_routes');
+const db                        = require('../config/db');
+const {checkUser, requireAuth}  = require('./middlewares/auth_middleware');
 
 // ===================================================
 //                 Express App Creation
@@ -40,6 +40,10 @@ app.use((req, res, next) =>
 // Apply for all get routes
 // ===================================================
 app.get('*', checkUser);
+app.get('/jwtid', requireAuth, (req, res) =>
+{
+    res.status(200).send(res.locals.user.id);
+});
 
 // ===================================================
 //                 Routes Definitions

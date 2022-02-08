@@ -43,7 +43,6 @@ exports.login = async (req, res) =>
     } 
     catch (error) 
     {
-        console.log(JSON.stringify(error));
         res.status(400).json(error);
     }
 }
@@ -53,7 +52,6 @@ exports.login = async (req, res) =>
 // ===================================================
 exports.logout = (req, res) => 
 {
-    console.log("LogOut");
     res.cookie('jwt', '', {maxAge : 1});
     res.redirect('/');
 }
