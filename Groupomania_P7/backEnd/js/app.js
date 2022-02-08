@@ -1,6 +1,8 @@
-const express   = require('express');
-const routes    = require('./routes/user_routes');
-const db        = require('../config/db');
+const express       = require('express');
+const cookieParser  = require('cookie-parser');
+const routes        = require('./routes/user_routes');
+const db            = require('../config/db');
+const {checkUser}   = require('./middlewares/auth_middleware');
 
 // ===================================================
 //                 Express App Creation
@@ -10,6 +12,7 @@ const app = express();
 // Ici, Express prend toutes les requêtes qui ont comme Content-Type  application/json  
 // et met à disposition leur  body  directement sur l'objet req
 app.use(express.json());
+app.use(cookieParser());
 
 // ===================================================
 //                     Middlewares
@@ -32,9 +35,16 @@ app.use((req, res, next) =>
 });
 
 // ===================================================
+//                 Auth Definitions
+// ===================================================
+// Apply for all get routes
+// ===================================================
+app.get('*', checkUser);
+
+// ===================================================
 //                 Routes Definitions
 // ===================================================
-app.use(routes);
+app.use('/api/user', routes);
 
 // ===================================================
 //                 DB Connection

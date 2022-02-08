@@ -3,33 +3,11 @@ const UserValidation    = require('../validations/user_validation');
 
 
 // ===================================================
-// createUser
-// ===================================================
-exports.createUser = (req, res, next) => 
-{
-    const {body} = req;
-    const {error} = UserValidation(body);
-
-    if (error) return res.status(401).json(error.details[0].message);
-
-    UserModel.create({...body})
-        .then(() => {res.status(201).json({ message: 'User added !'});})
-        .catch(error => res.status(500).json(error))
-}
-
-// ===================================================
-// logUser
-// ===================================================
-exports.logUser = (req, res, next) => 
-{
-}
-
-// ===================================================
 // getUsers
 // ===================================================
-exports.getUsers = (req, res, next) => 
+exports.getUsers = (req, res) => 
 {
-    UserModel.findAll({attributes : {exclude : ["createdAt", "updatedAt"]}})
+    UserModel.findAll({attributes : {exclude : ["createdAt", "updatedAt", "password"]}})
         .then( users =>
         {
             res.status(200).json(users);
@@ -40,16 +18,16 @@ exports.getUsers = (req, res, next) =>
 // ===================================================
 // getUser
 // ===================================================
-exports.getUser = (req, res, next) => 
+exports.getUser = (req, res) => 
 {
     const {id} = req.params;
 
-    UserModel.findByPk(id, {attributes : {exclude : ["createdAt", "updatedAt"]}})
+    UserModel.findByPk(id, {attributes : {exclude : ["createdAt", "updatedAt", "password"]}})
     .then(user =>
     {
         if (!user)
         {
-            return res.status(404).json({message : "User not found !"})
+            return res.status(400).json({message : `User not found : ${id}`})
         }
 
         return res.status(200).json(user);
@@ -60,9 +38,9 @@ exports.getUser = (req, res, next) =>
 // ===================================================
 // updateUser TODO:Check how to pass file
 // ===================================================
-exports.updateUser = (req, res, next) => 
+exports.updateUser = (req, res) => 
 {
-    UserModel.findByPk(req.params.id, {attributes : {exclude : ["createdAt", "updatedAt"]}})
+    UserModel.findByPk(req.params.id, {attributes : {exclude : ["createdAt", "updatedAt", "password"]}})
     .then(user =>
     {
         if (!user)
@@ -119,9 +97,25 @@ exports.updateUser = (req, res, next) =>
 // ===================================================
 // deleteUser
 // ===================================================
-exports.deleteUser = (req, res, next) => 
+exports.deleteUser = (req, res) => 
 {
     const {id} = req.params;
+    console.log(req.params);
+
+    /*UserModel.findByPk(req.params.id, {attributes : {exclude : ["createdAt", "updatedAt"]}})
+    .then(user =>
+    {
+        if (!user)
+        {
+            res.status(404).json({ message: 'User not found !'})
+        }
+
+        if (user.validPassword())
+        {
+
+        }
+    })
+    .catch(error => res.status(500).json(error))*/
 
     UserModel.destroy({where : {id : id}})
     .then(user =>

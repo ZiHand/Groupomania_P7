@@ -9,9 +9,9 @@ const userSchema = db.define('users',
 {
     id : 
     {
-        type            : Sequelize.DataTypes.INTEGER.UNSIGNED,
+        type            : Sequelize.UUID,
+        defaultValue    : Sequelize.UUIDV4,
         primaryKey      : true,
-        autoIncrement   : true,
         allowNull       : false
     },
     first_name : 
@@ -54,7 +54,17 @@ const userSchema = db.define('users',
                 user.password = bcrypt.hashSync(user.password, salt);
             }
         },
+
         beforeUpdate:async (user) => 
+        {
+            if (user.password) 
+            {
+                const salt = await bcrypt.genSaltSync(10, 'a');
+                user.password = bcrypt.hashSync(user.password, salt);
+            }
+        },
+
+        beforeDestroy:async (user) => 
         {
             if (user.password) 
             {
@@ -64,14 +74,44 @@ const userSchema = db.define('users',
         }
     },
 
-    instanceMethods: 
+    /*instanceMethods: 
     {
         validPassword: (password) => 
         {
             return bcrypt.compareSync(password, this.password);
         }
-    }
+    }*/
 });
+
+// Adding an instance level method ASK PASCAL
+userSchema.prototype.validPassword = function(password, hash) 
+{
+    console.log("validPassword");
+    return bcrypt.compareSync(password, this.password);
+};
+
+// Static methode
+userSchema.login = async function (email, password)
+{
+    const user = await this.findOne({ where: { email: email } });
+    
+    if (!user)
+    {
+        throw("Incorrect email.");
+    }
+
+    /*if (!this.validPassword(password, user.password))
+    {
+        throw("Incorrect password.");
+    }*/
+
+    if (!bcrypt.compareSync(password, user.password)) // Should use validPassword() func / not working
+    {
+        throw("Incorrect password.");
+    }
+
+    return user;
+};
 
 // ===================================================
 //                 User Export

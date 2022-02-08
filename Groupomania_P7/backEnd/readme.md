@@ -12,3 +12,7 @@ npm i dotenv
 npm i joi
 // - Install bcrypt : Datas encryption
 npm i bcrypt
+// - Install jwt : Json Web Token
+npm i -s jsonwebtoken
+// cookie-parser
+npm i cookie-parser
