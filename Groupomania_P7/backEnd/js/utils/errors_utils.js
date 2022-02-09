@@ -7,8 +7,6 @@ exports.signUpErrors = (err) =>
 
     let errors = {pseudo: "", email: "", password: ""};
 
-    console.log(err.message);
-
     if (err.message.includes('pseudo'))
     {
         errors.pseudo = "Pseudo non valide.";

@@ -6,7 +6,7 @@ const UserModel = require('../models/user_model');
 // ===================================================
 // Used on all GET request
 // ===================================================
-exports.checkUser = (req, res, next) =>
+module.exports.checkUser = (req, res, next) =>
 {
     const token = req.cookies.jwt;
 
@@ -40,7 +40,7 @@ exports.checkUser = (req, res, next) =>
 // ===================================================
 // 
 // ===================================================
-exports.requireAuth = (req, res, next) =>
+module.exports.requireAuth = (req, res, next) =>
 {
     const token = req.cookies.jwt;
 

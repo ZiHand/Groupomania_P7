@@ -15,7 +15,7 @@ const createToken = (id) =>
 // ===================================================
 // signUp
 // ===================================================
-exports.signUp = async (req, res) => 
+module.exports.signUp = async (req, res) => 
 {
     const {body}    = req;
     const {error}   = UserValidation(body);
@@ -29,6 +29,7 @@ exports.signUp = async (req, res) =>
         })
         .catch(error =>
         {
+            //const errors = signUpErrors(error);
             res.status(200).send(error.message);
         });
 }
@@ -36,7 +37,7 @@ exports.signUp = async (req, res) =>
 // ===================================================
 // login
 // ===================================================
-exports.login = async (req, res) => 
+module.exports.login = async (req, res) => 
 {
     const {email, password} = req.body;
 
@@ -57,7 +58,7 @@ exports.login = async (req, res) =>
 // ===================================================
 // logout
 // ===================================================
-exports.logout = (req, res) => 
+module.exports.logout = (req, res) => 
 {
     res.cookie('jwt', '', {maxAge : 1});
     res.redirect('/');

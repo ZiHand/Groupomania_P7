@@ -5,7 +5,7 @@ const UserValidation    = require('../validations/user_validation');
 // ===================================================
 // getUsers
 // ===================================================
-exports.getUsers = (req, res) => 
+module.exports.getUsers = (req, res) => 
 {
     UserModel.findAll({attributes : {exclude : ["createdAt", "updatedAt", "password"]}})
         .then( users =>
@@ -18,7 +18,7 @@ exports.getUsers = (req, res) =>
 // ===================================================
 // getUser
 // ===================================================
-exports.getUser = (req, res) => 
+module.exports.getUser = (req, res) => 
 {
     const {id} = req.params;
 
@@ -38,7 +38,7 @@ exports.getUser = (req, res) =>
 // ===================================================
 // updateUser TODO:Check how to pass file
 // ===================================================
-exports.updateUser = (req, res) => 
+module.exports.updateUser = (req, res) => 
 {
     UserModel.findByPk(req.params.id, {attributes : {exclude : ["createdAt", "updatedAt", "password"]}})
     .then(user =>
@@ -97,25 +97,9 @@ exports.updateUser = (req, res) =>
 // ===================================================
 // deleteUser
 // ===================================================
-exports.deleteUser = (req, res) => 
+module.exports.deleteUser = (req, res) => 
 {
     const {id} = req.params;
-    console.log(req.params);
-
-    /*UserModel.findByPk(req.params.id, {attributes : {exclude : ["createdAt", "updatedAt"]}})
-    .then(user =>
-    {
-        if (!user)
-        {
-            res.status(404).json({ message: 'User not found !'})
-        }
-
-        if (user.validPassword())
-        {
-
-        }
-    })
-    .catch(error => res.status(500).json(error))*/
 
     UserModel.destroy({where : {id : id}})
     .then(user =>
