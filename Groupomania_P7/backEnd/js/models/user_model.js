@@ -14,15 +14,19 @@ const userSchema = db.define('users',
         primaryKey      : true,
         allowNull       : false
     },
+    pseudo : 
+    {
+        type            : Sequelize.DataTypes.STRING(15),
+        allowNull       : false,
+        unique          : {args: true, msg: 'Pseudo already in use! '}
+    },
     first_name : 
     {
         type            : Sequelize.DataTypes.STRING(50),
-        allowNull       : false
     },
     last_name : 
     {
         type            : Sequelize.DataTypes.STRING(50),
-        allowNull       : false
     },
     email : 
     {

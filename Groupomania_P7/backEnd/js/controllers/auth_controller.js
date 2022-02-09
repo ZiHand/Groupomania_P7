@@ -1,7 +1,8 @@
-const UserModel         = require('../models/user_model');
-const UserValidation    = require('../validations/user_validation');
-const jwt               = require('jsonwebtoken');
-const maxAge            = 3 * 24 * 60 * 60 * 1000;
+const UserModel                         = require('../models/user_model');
+const UserValidation                    = require('../validations/user_validation');
+const jwt                               = require('jsonwebtoken');
+const { signUpErrors, signInErrors }    = require('../utils/errors_utils');
+const maxAge                            = 3 * 24 * 60 * 60 * 1000;
 
 // ===================================================
 // createToken
@@ -12,7 +13,7 @@ const createToken = (id) =>
 }
 
 // ===================================================
-// register
+// signUp
 // ===================================================
 exports.signUp = async (req, res) => 
 {
@@ -22,8 +23,14 @@ exports.signUp = async (req, res) =>
     if (error) return res.status(401).json(error.details[0].message);
 
     UserModel.create({...body})
-        .then(() => {res.status(201).json({ message: 'User added !'});})
-        .catch(error => res.status(500).json(error))
+        .then((user) => 
+        {
+            res.status(201).json({ message: `User added : ${user.id}`});
+        })
+        .catch(error =>
+        {
+            res.status(200).send(error.message);
+        });
 }
 
 // ===================================================
