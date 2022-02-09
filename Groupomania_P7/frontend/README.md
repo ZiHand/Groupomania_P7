@@ -75,3 +75,5 @@ npm i -s react-router-dom
 ### Promise based HTTP client for the browser and node.js
 
 npm i -s axios
+
+npm i -s dotenv
