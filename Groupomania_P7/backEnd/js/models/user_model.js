@@ -18,14 +18,14 @@ const userSchema = db.define('users',
     {
         type            : Sequelize.DataTypes.STRING(15),
         allowNull       : false,
-        unique          : {args: true, msg: 'Pseudo already in use! '}
+        unique          : {args: true, msg: 'unique_pseudo'}
     },
     email : 
     {
         type            : Sequelize.DataTypes.STRING(100),
         allowNull       : false,
         validate        : {isEmail:true},
-        unique          : {args: true, msg: 'Email address already in use! '}
+        unique          : {args: true, msg: 'unique_email'}
     },
     password : 
     {
@@ -82,7 +82,6 @@ const userSchema = db.define('users',
 // Adding an instance level method ASK PASCAL
 userSchema.prototype.validPassword = function(password, hash) 
 {
-    console.log("validPassword");
     return bcrypt.compareSync(password, this.password);
 };
 

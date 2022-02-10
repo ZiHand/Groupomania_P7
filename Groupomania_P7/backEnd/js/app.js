@@ -3,6 +3,7 @@ const cookieParser              = require('cookie-parser');
 const routes                    = require('./routes/user_routes');
 const db                        = require('../config/db');
 const {checkUser, requireAuth}  = require('./middlewares/auth_middleware');
+const cors                      = require('cors');
 
 // ===================================================
 //                 Express App Creation
@@ -23,16 +24,17 @@ app.use(cookieParser());
 // afin de s'appliquer à toutes les routes. 
 // Cela permettra à toutes les demandes de toutes les origines d'accéder à l' API.
 // ===================================================
-app.use((req, res, next) => 
+const corsOptions = 
 {
-    // accéder à notre API depuis n'importe quelle origine ( '*' ) ;
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    // ajouter les headers mentionnés aux requêtes envoyées vers notre API (Origin , X-Requested-With , etc.) ;
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-    // envoyer des requêtes avec les méthodes mentionnées ( GET ,POST , etc.).
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-    next();
-});
+    origin: "http://localhost:3000",
+    credentials: true,
+    'allowedHeaders': ['sessionId', 'Content-Type'],
+    'exposedHeaders': ['sessionId'],
+    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    'preflightContinue': false
+}
+
+app.use(cors(corsOptions));
 
 // ===================================================
 //                 Auth Definitions
@@ -42,6 +44,7 @@ app.use((req, res, next) =>
 app.get('*', checkUser);
 app.get('/jwtid', requireAuth, (req, res) =>
 {
+    console.log(res);
     res.status(200).send(res.locals.user.id);
 });
 

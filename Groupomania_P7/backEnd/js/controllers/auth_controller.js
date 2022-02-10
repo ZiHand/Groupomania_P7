@@ -29,8 +29,8 @@ module.exports.signUp = async (req, res) =>
         })
         .catch(error =>
         {
-            //const errors = signUpErrors(error);
-            res.status(200).send(error.message);
+            const errors = signUpErrors(error);
+            res.status(200).json({ errors });
         });
 }
 
@@ -51,7 +51,7 @@ module.exports.login = async (req, res) =>
     } 
     catch (error) 
     {
-        const errors = signUpErrors(error);
+        const errors = signInErrors(error);
         res.status(200).json({ errors });
     }
 }

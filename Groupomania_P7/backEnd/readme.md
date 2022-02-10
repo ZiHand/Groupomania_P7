@@ -16,3 +16,5 @@ npm i bcrypt
 npm i -s jsonwebtoken
 // cookie-parser
 npm i cookie-parser
+// cors options
+npm i -s cors

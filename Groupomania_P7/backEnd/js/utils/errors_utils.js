@@ -1,7 +1,7 @@
 // ===================================================
 // signUpErrors Handling
 // ===================================================
-exports.signUpErrors = (err) => 
+module.exports.signUpErrors = (err) => 
 {
     if (!err) return "";
 
@@ -22,11 +22,33 @@ exports.signUpErrors = (err) =>
         errors.password = "Le password est incorrect";
     }
 
-    if (err.code == 1062)
+    if (err.message.includes('unique_pseudo'))
     {
-        errors.email = "Email deja enregistré.";
+        errors.pseudo = "Pseudo deja enregistré.";
+    }
+    else if (err.message.includes('unique_email'))
+    {
+        errors.email = "Email deja utilisé.";
     }
 
 
     return errors;
 }
+
+// ===================================================
+// signInErrors Handling
+// ===================================================
+module.exports.signInErrors = (err) => 
+{
+    let errors = { email: '', password: ''}
+  
+    if (err.message.includes("email")) 
+      errors.email = "Email inconnu";
+    
+    if (err.message.includes('password'))
+      errors.password = "Le mot de passe ne correspond pas"
+  
+    return errors;
+  }
+
+// ===================================================

@@ -17,7 +17,7 @@ module.exports.checkUser = (req, res, next) =>
             if (error)
             {
                 res.locals.user = null;
-                res.cookie('jwt', '', {maxAge : 1});
+                //res.cookie('jwt', '', {maxAge : 1});
                 next();
             }
             else
@@ -33,7 +33,7 @@ module.exports.checkUser = (req, res, next) =>
         res.locals.user = null;
         next();
     }
-}
+};
 
 // ===================================================
 // requireAuth
@@ -51,17 +51,17 @@ module.exports.requireAuth = (req, res, next) =>
             if (error)
             {
                 console.log(error);
+                res.send(200).json('no token');
             }
             else
             {
                 console.log("User logged : " + decodedToken.id);
                 next();
             }
-        })
+        });
     }
     else
     {
         console.log("No Valid Token.");
-        throw("No Valid Token.");
     }
 }

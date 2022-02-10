@@ -21,7 +21,7 @@ const LoginForm = () =>
         {
             method          : "post",
             url             : `http://localhost:8080/api/user/login`,
-            //withCredentials : true,
+            withCredentials : true,
             data            : {email, password},
         })
             .then((res) => 
