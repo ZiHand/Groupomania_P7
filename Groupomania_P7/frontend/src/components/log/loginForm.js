@@ -3,6 +3,7 @@ import Axios from "axios";
 
 const LoginForm = () => 
 {
+    console.log("LoginForm");
     // ================================
     // Hooks
     // ================================
@@ -12,27 +13,25 @@ const LoginForm = () =>
     // ================================
     // Logic
     // ================================
-    const handleLogin = (e) =>
+    const handleLogin = (event) =>
     {
-        console.log("handleLogin");
-
-        e.preventDefaut();
-
-        
-
         const emailError    = document.querySelector(".email.error");
         const passwordError = document.querySelector(".password.error");
+
+        if (!emailError || !passwordError)
+        {
+            console.log("emailError");
+        }
 
         Axios(
         {
             method          : "post",
-            url             : `${process.env.REACT_APP_API_URL}api/user/login`,
-            withCredentials : true,
+            url             : `http://localhost:8080/api/user/login`,
+            //withCredentials : true,
             data            : {email, password},
         })
             .then((res) => 
             {
-                console.log(res);
                 if (res.data.errors)
                 {
                     emailError.innerHTML    = res.data.errors.email;
@@ -40,6 +39,8 @@ const LoginForm = () =>
                 }
                 else
                 {
+                    console.log(res);
+
                     // Retour a l'acceuil, nous sommes connecté.
                     //window.location = '/';
                 }
@@ -48,6 +49,9 @@ const LoginForm = () =>
             {
                 console.log(err);
             });
+
+        // Put it at the end !!
+        event.preventDefault();
     };
 
     // ================================
