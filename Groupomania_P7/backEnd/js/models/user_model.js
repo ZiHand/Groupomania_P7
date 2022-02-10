@@ -20,14 +20,6 @@ const userSchema = db.define('users',
         allowNull       : false,
         unique          : {args: true, msg: 'Pseudo already in use! '}
     },
-    first_name : 
-    {
-        type            : Sequelize.DataTypes.STRING(50),
-    },
-    last_name : 
-    {
-        type            : Sequelize.DataTypes.STRING(50),
-    },
     email : 
     {
         type            : Sequelize.DataTypes.STRING(100),
@@ -101,7 +93,7 @@ userSchema.login = async function (email, password)
     
     if (!user)
     {
-        throw("Incorrect email.");
+        throw new Error("email");
     }
 
     /*if (!this.validPassword(password, user.password))
@@ -111,7 +103,7 @@ userSchema.login = async function (email, password)
 
     if (!bcrypt.compareSync(password, user.password)) // Should use validPassword() func / not working
     {
-        throw("Incorrect password.");
+        throw new Error("password");
     }
 
     return user;

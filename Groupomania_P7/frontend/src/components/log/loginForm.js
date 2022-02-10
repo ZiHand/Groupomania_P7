@@ -3,7 +3,6 @@ import Axios from "axios";
 
 const LoginForm = () => 
 {
-    console.log("LoginForm");
     // ================================
     // Hooks
     // ================================
@@ -17,11 +16,6 @@ const LoginForm = () =>
     {
         const emailError    = document.querySelector(".email.error");
         const passwordError = document.querySelector(".password.error");
-
-        if (!emailError || !passwordError)
-        {
-            console.log("emailError");
-        }
 
         Axios(
         {
@@ -39,10 +33,10 @@ const LoginForm = () =>
                 }
                 else
                 {
-                    console.log(res);
-
                     // Retour a l'acceuil, nous sommes connecté.
-                    //window.location = '/';
+                    emailError.innerHTML    = "";
+                    passwordError.innerHTML = "";
+                    window.location = '/profil';
                 }
             })
             .catch((err) => 

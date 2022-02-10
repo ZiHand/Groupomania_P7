@@ -43,7 +43,7 @@ module.exports.login = async (req, res) =>
 
     try
     {
-        const user = await UserModel.login(email, password);
+        const user  = await UserModel.login(email, password);
         const token = createToken(user.id);
 
         res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge});
@@ -51,7 +51,8 @@ module.exports.login = async (req, res) =>
     } 
     catch (error) 
     {
-        res.status(400).json(error);
+        const errors = signUpErrors(error);
+        res.status(200).json({ errors });
     }
 }
 

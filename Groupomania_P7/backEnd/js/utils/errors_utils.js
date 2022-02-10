@@ -9,7 +9,7 @@ exports.signUpErrors = (err) =>
 
     if (err.message.includes('pseudo'))
     {
-        errors.pseudo = "Pseudo non valide.";
+        errors.pseudo = "Pseudo non valide ou deja utilisé.";
     }
     
     if (err.message.includes('email'))
@@ -19,7 +19,7 @@ exports.signUpErrors = (err) =>
     
     if (err.message.includes('password'))
     {
-        errors.password = "Le password doit etre d'au moins 6 caracteres.";
+        errors.password = "Le password est incorrect";
     }
 
     if (err.code == 1062)
