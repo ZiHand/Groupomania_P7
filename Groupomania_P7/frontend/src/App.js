@@ -15,8 +15,6 @@ const App = () =>
     
     const fetchToken = async() =>
     {
-      console.log("Front : fetchToken");
-
       await Axios(
       {
         method          : "get",
@@ -25,15 +23,12 @@ const App = () =>
       })
         .then((res) => 
         {
-          console.log(res);
           setUid(res.data);
         })
         .catch((err) => console.log("Front : No token"))
     }
 
     fetchToken();
-
-    console.log("Front : fetchToken END");
     
   }, [uid]) // [] mean not infinit call ! if args change, called again.
 
