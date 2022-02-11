@@ -16,22 +16,16 @@ app.use(express.json());
 app.use(cookieParser());
 
 // ===================================================
-//                     Middlewares
-// ===================================================
-
-// ===================================================
-// le middleware ne prend pas d'adresse en premier paramètre, 
-// afin de s'appliquer à toutes les routes. 
-// Cela permettra à toutes les demandes de toutes les origines d'accéder à l' API.
+//                  cors - Options
 // ===================================================
 const corsOptions = 
 {
-    origin: "http://localhost:3000",
-    credentials: true,
-    'allowedHeaders': ['sessionId', 'Content-Type'],
-    'exposedHeaders': ['sessionId'],
-    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    'preflightContinue': false
+    origin              : "http://localhost:3000",
+    credentials         : true,
+    'allowedHeaders'    : ['sessionId', 'Content-Type'],
+    'exposedHeaders'    : ['sessionId'],
+    'methods'           : 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    'preflightContinue' : false
 }
 
 app.use(cors(corsOptions));
@@ -39,7 +33,7 @@ app.use(cors(corsOptions));
 // ===================================================
 //                 Auth Definitions
 // ===================================================
-// Apply for all get routes
+// Apply to all get routes
 // ===================================================
 app.get('*', checkUser);
 app.get('/jwtid', requireAuth, (req, res) =>

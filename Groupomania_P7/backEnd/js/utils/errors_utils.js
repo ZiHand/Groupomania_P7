@@ -31,7 +31,6 @@ module.exports.signUpErrors = (err) =>
         errors.email = "Email deja utilisé.";
     }
 
-
     return errors;
 }
 

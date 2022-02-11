@@ -36,7 +36,7 @@ const LoginForm = () =>
                     // Retour a l'acceuil, nous sommes connecté.
                     emailError.innerHTML    = "";
                     passwordError.innerHTML = "";
-                    window.location = '/profil';
+                    window.location = '/';
                 }
             })
             .catch((err) => 

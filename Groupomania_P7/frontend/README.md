@@ -77,3 +77,4 @@ npm i -s react-router-dom
 npm i -s axios
 
 npm i -s dotenv
+npm i -s js-cookie
