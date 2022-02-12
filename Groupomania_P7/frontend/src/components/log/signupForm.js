@@ -43,7 +43,7 @@ const SigninForm = () =>
             await Axios(
             {
                 method          : "post",
-                url             : `http://localhost:8080/api/user/signup`,
+                url             : `${process.env.REACT_APP_API_URL}api/user/signup`,
                 withCredentials : true,
                 data            : {pseudo, email, password},
             })

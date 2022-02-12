@@ -17,13 +17,13 @@ const LogOut = () =>
         await Axios(
         {
             method          : 'get',
-            url             : `http://localhost:8080/api/user/logout`,
+            url             : `${process.env.REACT_APP_API_URL}api/user/logout`,
             withCredentials : true
         })
         .then(() => removeCookie('jwt'))
         .catch((err) => console.log(err))
 
-        window.location = "/";
+        //window.location = "/";
     }
 
     return (

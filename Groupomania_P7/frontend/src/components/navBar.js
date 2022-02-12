@@ -13,10 +13,11 @@ const NavBar = () =>
     // ================================
     const renderLogged = () => 
     {
+        console.log(uid);
         console.log("renderLogged");
         return (
             <ul>
-                <li>whooooo</li>
+                <li>LOGGED</li>
                 <li className='welcome'>
                     <NavLink end to='/profil'>
                         <h5>Bienvenue 'valeur dynamic'</h5>
@@ -32,6 +33,7 @@ const NavBar = () =>
     // ================================
     const renderUnLogged = () => 
     {
+        console.log(uid);
         console.log("renderUnLogged");
         return (
             <ul>
@@ -58,7 +60,7 @@ const NavBar = () =>
                         </div>
                     </NavLink>
                 </div>
-                {uid == null ? renderLogged() : renderUnLogged()}
+                {uid ? renderLogged() : renderUnLogged()}
             </div>
         </nav>
     );

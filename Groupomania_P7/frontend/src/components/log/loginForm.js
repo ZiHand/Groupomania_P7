@@ -20,7 +20,7 @@ const LoginForm = () =>
         Axios(
         {
             method          : "post",
-            url             : `http://localhost:8080/api/user/login`,
+            url             : `${process.env.REACT_APP_API_URL}api/user/login`,
             withCredentials : true,
             data            : {email, password},
         })

@@ -18,7 +18,7 @@ const App = () =>
       await Axios(
       {
         method          : "get",
-        url             : "http://localhost:8080/jwtid",
+        url             : `${process.env.REACT_APP_API_URL}jwtid`,
         withCredentials : true,
       })
         .then((res) => 
