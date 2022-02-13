@@ -5,15 +5,13 @@ import LogOut from './log/logOut';
 
 const NavBar = () => 
 {
-    const uid = useContext(UidContext);
-    console.log(uid);
+    const uidCtx = useContext(UidContext);
 
     // ================================
     // Render Logged
     // ================================
     const renderLogged = () => 
     {
-        console.log(uid);
         console.log("renderLogged");
         return (
             <ul>
@@ -33,7 +31,6 @@ const NavBar = () =>
     // ================================
     const renderUnLogged = () => 
     {
-        console.log(uid);
         console.log("renderUnLogged");
         return (
             <ul>
@@ -60,7 +57,7 @@ const NavBar = () =>
                         </div>
                     </NavLink>
                 </div>
-                {uid ? renderLogged() : renderUnLogged()}
+                {uidCtx.uid ? renderLogged() : renderUnLogged()}
             </div>
         </nav>
     );
