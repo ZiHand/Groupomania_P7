@@ -78,3 +78,9 @@ npm i -s axios
 
 npm i -s dotenv
 npm i -s js-cookie
+
+npm i -s react-redux
+npm i -s redux
+npm i -s redux-thunk
+npm i -s redux-logger
+npm i -s redux-devtools-extension

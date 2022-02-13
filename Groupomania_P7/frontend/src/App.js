@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Routes from './components/routes';
 import { UidContext } from './components/app_context';
 import Axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { getUser } from './actions/user_actions';
 
 const App = () => 
 {
@@ -9,10 +11,10 @@ const App = () =>
   // Hooks
   // ================================
   const [uid, setUid] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() =>
   {
-    
     const fetchToken = async() =>
     {
       await Axios(
@@ -29,6 +31,9 @@ const App = () =>
     }
 
     fetchToken();
+
+    if (uid)
+      dispatch(getUser(uid));
     
   }, [uid]) // [] mean not infinit call ! if args change, called again.
 
