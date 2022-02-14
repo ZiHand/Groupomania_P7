@@ -81,7 +81,7 @@ module.exports.updatePost = (req, res) =>
         if (req.params.id !== post.id)
         {
             badStatus = 403;
-            errorMsg = " unauthorized request";
+            let errorMsg = " unauthorized request";
             throw(errorMsg);
         }
 

@@ -2,6 +2,7 @@ const express                   = require('express');
 const cookieParser              = require('cookie-parser');
 const userRoutes                = require('./routes/user_routes');
 const postRoutes                = require('./routes/post_routes');
+const commentRoutes             = require('./routes/comment_routes');
 const db                        = require('../config/db');
 const {checkUser, requireAuth}  = require('./middlewares/auth_middleware');
 const cors                      = require('cors');
@@ -48,7 +49,7 @@ app.get('/jwtid', requireAuth, (req, res) =>
 app.use('/api/user', userRoutes);
 
 app.use('/api/post', postRoutes);
-app.use('/api/post', postRoutes);
+app.use('/api/comment', commentRoutes);
 
 // ===================================================
 //                 DB Connection
