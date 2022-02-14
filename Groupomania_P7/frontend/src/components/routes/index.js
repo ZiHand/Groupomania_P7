@@ -1,10 +1,11 @@
 import React from 'react';
-import {BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import {BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from '../../pages/home';
 import Profil from '../../pages/profil';
+import Posts from '../../pages/posts';
 import NavBar from '../navBar';
 
-const index = () => 
+const Index = () => 
 {
     return (
         
@@ -13,10 +14,10 @@ const index = () =>
             <Routes>
                 <Route path="/" exact element={<Home />} />
                 <Route path="/profil" exact element={<Profil/>} />
-                {/* <Navigate to="/" /> */}
+                {/* <Route path="/posts" exact element={<Posts/>} /> */}
             </Routes>
         </BrowserRouter>
     );
 };
 
-export default index;
+export default Index;

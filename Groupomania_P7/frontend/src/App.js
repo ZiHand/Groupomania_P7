@@ -11,7 +11,7 @@ const App = () =>
   // Hooks
   // ================================
   const [uid, setUid] = useState(null);
-  const dispatch = useDispatch();
+  const dispatch      = useDispatch();
 
   useEffect(() =>
   {
@@ -33,9 +33,12 @@ const App = () =>
     fetchToken();
 
     if (uid)
+    {
       dispatch(getUser(uid));
+    }
+      
     
-  }, [uid]) // [] mean not infinit call ! if args change, called again.
+  }, [dispatch, uid],) // [] mean not infinit call ! if args change, called again.
 
   // ================================
   // Logic

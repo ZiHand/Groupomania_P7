@@ -20,15 +20,18 @@ const postSchema = db.define('posts',
     },
     message : 
     {
-        type            : Sequelize.DataTypes.STRING(500)
+        type            : Sequelize.DataTypes.STRING(500),
+        empty           : true
     },
     picture : 
     {
-        type            : Sequelize.DataTypes.STRING(150)
+        type            : Sequelize.DataTypes.STRING(150),
+        empty           : true
     },
     video : 
     {
-        type            : Sequelize.DataTypes.STRING(150)
+        type            : Sequelize.DataTypes.STRING(200),
+        empty           : true
     }
 });
 

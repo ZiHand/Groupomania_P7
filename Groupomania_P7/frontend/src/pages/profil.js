@@ -1,15 +1,12 @@
 import React from 'react';
-import Log from '../components/log';
 
-const profil = () => 
+const Profil = () => 
 {
     return (
         <div className='profil_page'>
-            <div className='log_container'>
-            <Log signin={false} signup={true}/>
-            </div>
+            Profile Page
         </div>
     );
 };
 
-export default profil;
+export default Profil;

@@ -3,22 +3,20 @@ import { useSelector } from 'react-redux';
 import {NavLink} from "react-router-dom";
 import { UidContext } from './app_context';
 import LogOut from './log/logOut';
-import userReducer from './../reducers/user_reducer';
 
 const NavBar = () => 
 {
-    const uidCtx = useContext(UidContext);
-    const userData = useSelector((state) => state.userReducer);
+    const uidCtx    = useContext(UidContext);
+    const userData  = useSelector((state) => state.userReducer);
 
     // ================================
     // Render Logged
     // ================================
     const renderLogged = () => 
     {
-        console.log("renderLogged");
         return (
             <ul>
-                <li>LOGGED</li>
+                <li></li>
                 <li className='welcome'>
                     <NavLink end to='/profil'>
                         <h5>Bienvenue {userData.pseudo}</h5>
@@ -34,12 +32,11 @@ const NavBar = () =>
     // ================================
     const renderUnLogged = () => 
     {
-        console.log("renderUnLogged");
         return (
             <ul>
                 <li></li>
                 <li>
-                    <NavLink end to='/profil'>
+                    <NavLink end to='/'>
                         <img src='./img/icons/login.svg' alt='Logo de connection' title='Connection'/>
                     </NavLink>
                 </li>

@@ -1,11 +1,15 @@
 import React from 'react';
+import Log from '../components/log';
 
-const home = () => {
+const Home = () => 
+{
     return (
-        <div>
-            Page Home.
+        <div className='home_page'>
+            <div className='log_container'>
+                <Log signin={false} signup={true}/>
+            </div>
         </div>
     );
 };
 
-export default home;
+export default Home;
