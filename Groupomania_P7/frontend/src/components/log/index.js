@@ -34,10 +34,10 @@ const Log = (props) =>
     return (
         <div className='connection_form'>
             <div className='form_container'>
-                <ul>
+                {/* <ul>
                     <li onClick={handleModals} id="register">S'inscrire</li>
                     <li onClick={handleModals} id="login">Se connecter</li>
-                </ul>
+                </ul> */}
                 {signUpModal && <SigninForm/>}
                 {signInModal && <LoginForm/>}
             </div>

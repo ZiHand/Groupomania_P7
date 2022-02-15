@@ -1,4 +1,5 @@
 const CommentModel         = require('../models/comment_model');
+const PostModel            = require('../models/post_model');
 const CommentValidation    = require('../validations/post_validation');
 
 // ===================================================
@@ -37,12 +38,24 @@ module.exports.createComment = (req, res) =>
 // ===================================================
 module.exports.getComments = (req, res) => 
 {
-    CommentModel.findAll()
-        .then( comments =>
-        {
-            res.status(200).json(comments);
-        })
-        .catch(error => res.status(500).json(error))
+    CommentModel.findAll(
+    {
+        include: [
+            {
+              model: PostModel,
+              as: "posts",
+              attributes: ["id", "message", "image", "video"],
+              through: {
+                attributes: [],
+              },
+            },
+          ],
+    })
+    .then( comments =>
+    {
+        res.status(200).json(comments);
+    })
+    .catch(error => res.status(500).json(error))
 }
 
 // ===================================================
@@ -52,7 +65,19 @@ module.exports.getComment = (req, res) =>
 {
     const {id} = req.params;
 
-    CommentModel.findByPk(id)
+    CommentModel.findByPk(id,
+    {
+        include: [
+            {
+              model: PostModel,
+              as: "posts",
+              attributes: ["id", "message", "image", "video"],
+              through: {
+                attributes: [],
+              }
+            },
+          ],
+    })
     .then(comment =>
     {
         if (!comment)

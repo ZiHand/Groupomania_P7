@@ -1,11 +1,13 @@
 nav {
   position: fixed;
   width: 100%;
-  height: 45px;
-  border-radius: 6px;
-  box-shadow: 18px 1px 0px $color-1, 22px 4px 0px 0px $shadow;
+  height: 50px;
+  //border-radius: 6px;
+  //box-shadow: 18px 1px 0px $color_white, 22px 4px 0px 0px $color_black;
   z-index: 10;
   top: 0;
+  overflow: hidden;
+  background-color: white;
 
   @media screen and(max-width: 1251px) {
     padding: 0 20px;
@@ -23,10 +25,11 @@ nav {
     z-index: -8;
   }
 
-  .nav-container {
+  .nav_container {
     display: flex;
     width: 100%;
     max-width: 1190px;
+    max-height: 75px;
     margin: 0 auto;
     justify-content: space-between;
     height: 45px;
@@ -39,11 +42,11 @@ nav {
       h3 {
         transform: translate(15px, 2px);
         font-size: 1.5rem;
-        font-family: $font-3;
+        //font-family: $font-3;
       }
       img {
-        height: 26px;
-        width: 26px;
+        height: auto;
+        width: auto;
       }
     }
 
@@ -63,7 +66,7 @@ nav {
         }
 
         h5 {
-          font-family: $font-3;
+          //font-family: $font-3;
         }
       }
 

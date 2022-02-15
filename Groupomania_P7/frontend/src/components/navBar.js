@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import {NavLink} from "react-router-dom";
 import { UidContext } from './app_context';
 import LogOut from './log/logOut';
+import Profile from './log/profile';
 
 const NavBar = () => 
 {
@@ -18,11 +19,12 @@ const NavBar = () =>
             <ul>
                 <li></li>
                 <li className='welcome'>
-                    <NavLink end to='/profil'>
+                    <NavLink to='/'>
                         <h5>Bienvenue {userData.pseudo}</h5>
                     </NavLink>
                 </li>
                 <LogOut/>
+                <Profile/>
             </ul>
         );
     }
@@ -36,7 +38,7 @@ const NavBar = () =>
             <ul>
                 <li></li>
                 <li>
-                    <NavLink end to='/'>
+                    <NavLink to='/login'>
                         <img src='./img/icons/login.svg' alt='Logo de connection' title='Connection'/>
                     </NavLink>
                 </li>
@@ -51,9 +53,9 @@ const NavBar = () =>
         <nav>
             <div className='nav_container'>
                 <div className='logo'>
-                    <NavLink end to='/'>
+                    <NavLink to='/'>
                         <div className='logo'>
-                            <img src='./img/icon-left-font2.png' alt='Logo de Groupomania'/>
+                            <img src='./img/logos/icon-left-font@0,25x.png' alt='Logo de Groupomania'/>
                         </div>
                     </NavLink>
                 </div>

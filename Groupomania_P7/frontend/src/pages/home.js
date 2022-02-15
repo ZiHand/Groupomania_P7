@@ -1,13 +1,51 @@
-import React from 'react';
-import Log from '../components/log';
+import React, { useContext } from 'react';
+import { UidContext } from '../components/app_context';
 
 const Home = () => 
 {
+    const uidCtx    = useContext(UidContext);
+
+    const handleModals = (e) =>
+    {
+        if (e.target.id === "register")
+        {
+            window.location = '/signup';
+        }
+        else if (e.target.id === "login")
+        {
+            window.location = '/login';
+        }
+    }
+
+    // ================================
+    // Render Logged
+    // ================================
+    const renderLogged = () => 
+    {
+        return (
+            <div>
+                Home Page
+            </div>
+        );
+    }
+
+    // ================================
+    // Render UnLogged
+    // ================================
+    const renderUnLogged = () => 
+    {
+        return (
+            <div className='login_container'>
+                <button onClick={handleModals} id="register">S'inscrire</button>
+                <br/>
+                <button onClick={handleModals} id="login">Se connecter</button>
+            </div>
+        );
+    }
+
     return (
         <div className='home_page'>
-            <div className='log_container'>
-                <Log signin={false} signup={true}/>
-            </div>
+            {uidCtx.uid ? renderLogged() : renderUnLogged()}
         </div>
     );
 };

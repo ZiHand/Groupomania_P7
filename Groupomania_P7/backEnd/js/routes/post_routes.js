@@ -9,6 +9,7 @@ router.get('/getAll', postController.getPosts);
 router.get('/:id', postController.getPost);
 router.put('/:id', postController.updatePost);
 router.delete('/:id', postController.deletePost);
+router.post('/:postid/:commentid', postController.addComment);
 
 
 // ===================================================

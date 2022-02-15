@@ -1,0 +1,35 @@
+.home_page {
+  //display: grid;
+  //grid-template-columns: 60px 1fr 374px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  max-width: 1200px;
+
+  overflow: hidden;
+  margin: 75px auto 50px;
+  position: relative;
+
+  .login_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+
+    button {
+      width: 270px;
+    }
+  }
+
+  @media screen and(max-width: 990px) {
+    //grid-template-columns: 60px 1fr;
+    margin: 75px 20px 50px;
+  }
+
+  @media screen and(max-width: 590px) {
+    //grid-template-columns: 1fr;
+    margin: 75px 8px 50px;
+  }
+}

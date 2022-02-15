@@ -1,4 +1,5 @@
 const PostModel         = require('../models/post_model');
+const CommentModel      = require('../models/comment_model');
 const PostValidation    = require('../validations/post_validation');
 
 // ===================================================
@@ -37,7 +38,17 @@ module.exports.createPost = (req, res) =>
 // ===================================================
 module.exports.getPosts = (req, res) => 
 {
-    PostModel.findAll()
+    PostModel.findAll(
+    {
+        include: [
+            {
+              model: CommentModel,
+              as: "comments",
+              attributes: ["id", "message"],
+              through: {attributes: [],}
+            },
+          ],
+    })
         .then( posts =>
         {
             res.status(200).json(posts);
@@ -52,7 +63,19 @@ module.exports.getPost = (req, res) =>
 {
     const {id} = req.params;
 
-    PostModel.findByPk(id)
+    PostModel.findByPk(id, 
+    {
+        include: [
+            {
+              model: CommentModel,
+              as: "comments",
+              attributes: ["id", "message"],
+              through: {
+                attributes: [],
+              }
+            },
+          ],
+    })
     .then(post =>
     {
         if (!post)
@@ -120,6 +143,40 @@ module.exports.deletePost = (req, res) =>
         }
 
         res.status(200).json({ message: 'Post deleted.'})
+    })
+    .catch(error => res.status(500).json(error))
+}
+
+// ===================================================
+// deletePost
+// ===================================================
+module.exports.addComment = (req, res) => 
+{
+    const {postId, commentId} = req.params;
+
+    PostModel.findByPk(postId)
+    .then((post) =>
+    {
+        if (!post) 
+        {
+            res.status(404).json({ message: 'Post not found !'});
+        }
+
+        Comment.findByPk(commentId).then((comment) => 
+        {
+            if (!comment) 
+            {
+            res.status(404).json({ message: 'Comment not found !'});
+            }
+
+            post.addComment(comment);
+            res.status(200).json({ message: 'Post added.'})
+    
+        })
+        .catch((err) => 
+        {
+            console.log(">> Error while adding Comment to Post: ", err);
+        });
     })
     .catch(error => res.status(500).json(error))
 }
