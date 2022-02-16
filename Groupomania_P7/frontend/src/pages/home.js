@@ -44,7 +44,7 @@ const Home = () =>
     }
 
     return (
-        <div className='home_page'>
+        <div className='default_page home_page'>
             {uidCtx.uid ? renderLogged() : renderUnLogged()}
         </div>
     );

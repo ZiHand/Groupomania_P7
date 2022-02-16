@@ -18,3 +18,5 @@ npm i -s jsonwebtoken
 npm i cookie-parser
 // cors options
 npm i -s cors
+// multer
+npm i -s multer@^2.0.0-rc.1

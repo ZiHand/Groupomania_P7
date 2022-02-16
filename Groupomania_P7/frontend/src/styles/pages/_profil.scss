@@ -1,32 +1,91 @@
 .profil_page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: center;
-  max-width: 1200px;
-
-  overflow: hidden;
-  margin: 75px auto 50px;
-  position: relative;
-
-  @media screen and(max-width: 990px) {
-    //grid-template-columns: 60px 1fr;
-    margin: 75px 20px 50px;
+  .profil_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 80%;
+    min-height: 100%;
   }
 
-  @media screen and(max-width: 590px) {
-    //grid-template-columns: 1fr;
-    margin: 75px 8px 50px;
+  .update_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 100%;
+    min-height: 100%;
+    //background-color: white;
+    //overflow: hidden;
 
-    .log_container {
-      flex-direction: row;
+    form {
+      position: relative;
+
+      label {
+        position: relative;
+        //transform: translate(-50%, -50%);
+        width: 270px;
+        background: white;
+        color: black;
+        border-radius: 15px;
+        display: inline-block;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 9px 0;
+        transition: 0.2s;
+        z-index: 10;
+        cursor: pointer;
+
+        display: block;
+        text-align: center;
+        line-height: 150%;
+      }
+
+      input[type="file"] {
+        position: absolute;
+        transform: translate(-3px, -50%);
+        cursor: pointer;
+        padding: 10px 20px;
+        opacity: 0;
+      }
+
+      input[type="submit"] {
+        //margin-top: 50px;
+        border-radius: 15px;
+
+        &:hover {
+          letter-spacing: 1px;
+        }
+      }
     }
   }
 
   .img_container {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     background-color: white;
     align-items: center;
     align-content: center;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+
+    /*img {
+      margin: auto;
+      display: block;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 5px;
+      width: 150px;
+    }*/
+    img {
+      height: 180px;
+      width: 180px;
+      border-radius: 46px;
+      object-fit: cover;
+      margin-bottom: 30px;
+      box-shadow: 0 0 6px rgba(51, 51, 51, 0.363);
+    }
   }
 }

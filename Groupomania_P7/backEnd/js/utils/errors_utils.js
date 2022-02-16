@@ -51,3 +51,21 @@ module.exports.signInErrors = (err) =>
   }
 
 // ===================================================
+// uploadErrors Handling
+// ===================================================
+module.exports.uploadErrors = (err) => 
+{
+  console.log(err);
+    let errors = { format: '', maxSize: ''};
+  
+    if (err.message.includes('invalid file'))
+      errors.format = "Format incompatabile";
+  
+    if (err.message.includes('max size'))
+      errors.maxSize = "Le fichier dépasse 500ko";
+
+    if (err.message.includes('no file'))
+      errors.maxSize = "0ko";
+  
+    return errors
+  }

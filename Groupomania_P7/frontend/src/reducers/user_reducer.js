@@ -1,5 +1,5 @@
 
-import { GET_USER } from './../actions/user_actions';
+import { GET_USER, UPLOAD_PICTURE } from './../actions/user_actions';
 const initialState = {};
 
 export default function userReducer(state = initialState, action)
@@ -8,6 +8,12 @@ export default function userReducer(state = initialState, action)
     {
         case GET_USER:
             return action.payload;
+
+        case UPLOAD_PICTURE:
+            return {
+                ...state, // avoid to crush state
+                picture: action.payload,
+            };
 
         default: 
             return state;

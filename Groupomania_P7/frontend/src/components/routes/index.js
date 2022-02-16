@@ -4,7 +4,6 @@ import Home from '../../pages/home';
 import Profil from '../../pages/profil';
 import Login from '../../pages/login';
 import Register from '../../pages/register';
-import Posts from '../../pages/posts';
 import NavBar from '../navBar';
 
 const Index = () => 

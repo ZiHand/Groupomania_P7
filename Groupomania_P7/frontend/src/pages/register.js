@@ -4,7 +4,7 @@ import Log from '../components/log';
 const Register = () => 
 {
     return (
-        <div className='login_page'>
+        <div className='default_page login_page'>
             <div className='log_container'>
                 <Log signin={false} signup={true}/>
         </div>

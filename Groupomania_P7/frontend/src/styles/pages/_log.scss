@@ -1,31 +1,11 @@
 .login_page {
-  display: flex;
-  max-width: 1200px;
-  min-height: 500px;
-  overflow: hidden;
-  margin: 75px auto 50px;
-  position: relative;
-
-  @media screen and(max-width: 990px) {
-    //grid-template-columns: 60px 1fr;
-    margin: 75px 20px 50px;
-  }
-
-  @media screen and(max-width: 590px) {
-    //grid-template-columns: 1fr;
-    margin: 75px 8px 50px;
-
-    .log_container {
-      flex-direction: row;
-    }
-  }
-
   .log_container {
     display: flex;
     flex-direction: column;
     align-content: center;
     align-items: center;
     width: 100%;
+
     //background-color: darksalmon;
 
     @media screen and(max-width: 590px) {
@@ -45,6 +25,10 @@
   .form_container {
     display: flex;
     flex-direction: row;
+    background-color: $color_back_def;
+    padding: 30px;
+    border-radius: 15px;
+    color: black;
 
     @media screen and(max-width: 590px) {
       flex-direction: column;
