@@ -61,12 +61,14 @@ nav {
       .welcome {
         transform: translateY(2px);
 
-        @media screen and(max-width: 590px) {
+        /*@media screen and(max-width: 590px) 
+        {
           display: none;
-        }
+        }*/
 
         h5 {
           //font-family: $font-3;
+          color: black;
         }
       }
 
@@ -79,6 +81,14 @@ nav {
           align-items: center;
           justify-items: center;
           height: 100%;
+        }
+
+        .img_profile_header {
+          height: 40px;
+          width: 40px;
+          object-fit: contain;
+          border-radius: 50%;
+          box-shadow: 0 0 6px rgba(51, 51, 51, 0.363);
         }
       }
     }

@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux';
 import {NavLink} from "react-router-dom";
 import { UidContext } from './app_context';
 import LogOut from './log/logOut';
-import Profile from './log/profile';
 
 const NavBar = () => 
 {
-    const uidCtx    = useContext(UidContext);
-    const userData  = useSelector((state) => state.userReducer);
+    const uidCtx        = useContext(UidContext);
+    const userData      = useSelector((state) => state.userReducer);
+    const avatar_url    = "./uploads/profil/" + userData.avatar_url;
 
     // ================================
     // Render Logged
@@ -19,12 +19,11 @@ const NavBar = () =>
             <ul>
                 <li></li>
                 <li className='welcome'>
-                    <NavLink to='/'>
-                        <h5>Bienvenue {userData.pseudo}</h5>
+                    <NavLink to='/profil'>
+                        <img className='img_profile_header' src={userData.avatar_url ? avatar_url : "./img/default_avatar2.png"} alt="Avatar utilisateur, profil" title='Profil' />
                     </NavLink>
                 </li>
                 <LogOut/>
-                <Profile/>
             </ul>
         );
     }
@@ -55,7 +54,7 @@ const NavBar = () =>
                 <div className='logo'>
                     <NavLink to='/'>
                         <div className='logo'>
-                            <img src='./img/logos/icon-left-font@0,25x.png' alt='Logo de Groupomania'/>
+                            <img src='./img/logos/icon-left-font@0,25x.png' alt='Logo de Groupomania, acceuil' title='Acceuil'/>
                         </div>
                     </NavLink>
                 </div>
