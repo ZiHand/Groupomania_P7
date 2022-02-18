@@ -4,8 +4,6 @@ import UpdateProfil from "../components/profil/editprofile";
 
 const Profil = () => 
 {
-    const uidCtx    = useContext(UidContext);
-
     return (
         <div className='default_page profil_page'>
             <UpdateProfil />

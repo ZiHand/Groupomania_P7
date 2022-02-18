@@ -35,7 +35,7 @@ const userSchema = db.define('users',
     avatar_url : 
     {
         type            : Sequelize.DataTypes.STRING,
-        defaultValue    : "../../resources/default_avatar.png",
+        defaultValue    : "default_avatar2.png",
         allowNull       : true
     }
 },
