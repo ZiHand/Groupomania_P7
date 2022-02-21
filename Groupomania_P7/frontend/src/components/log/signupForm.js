@@ -57,12 +57,7 @@ const SigninForm = () =>
                 }
                 else
                 {
-                    /*pseudoError.innerHTML   = "";
-                    emailError.innerHTML    = "";
-                    passwordError.innerHTML = "";*/
-
                     setFormSubmit(true);
-                    //window.location = '/profil';
                 }
             })
             .catch((err) => 

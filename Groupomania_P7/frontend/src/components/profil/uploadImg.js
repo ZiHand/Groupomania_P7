@@ -1,13 +1,20 @@
 import React, { useState } from "react";
+import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadPicture } from "../../actions/user_actions";
 
 const UploadImg = () => 
 {
+    // ================================
+    // Hooks
+    // ================================
     const [file, setFile] = useState();
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.userReducer);
   
+    // ================================
+    // Logic
+    // ================================
     const handlePicture = (e) => 
     {
       e.preventDefault();
@@ -19,9 +26,12 @@ const UploadImg = () =>
       dispatch(uploadPicture(data, userData._id));
     };
   
+    // ================================
+    // Generate
+    // ================================
     return (
       <form action="" onSubmit={handlePicture} className="upload_pic">
-        <label htmlFor="file">Changer d'image</label>
+        <label htmlFor="file" className="pict_label">Changer d'image</label>
         <input
           type="file"
           id="file"
@@ -30,7 +40,7 @@ const UploadImg = () =>
           onChange={(e) => setFile(e.target.files[0])}
         />
         <br/>
-        <input type="submit" value="Envoyer" />
+        <input type="submit" value="Envoyer l'image" />
       </form>
     );
   };

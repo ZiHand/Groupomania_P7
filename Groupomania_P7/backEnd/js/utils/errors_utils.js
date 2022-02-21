@@ -68,4 +68,20 @@ module.exports.uploadErrors = (err) =>
       errors.maxSize = "0ko";
   
     return errors
-  }
+}
+
+// ===================================================
+// updateErrors Handling
+// ===================================================
+module.exports.updateErrors = (err) => 
+{
+  console.log(err);
+    let errors = { pseudo: ''};
+  
+    if (err.message.includes('pseudo'))
+      errors.pseudo = "Pseudo non valide ou deja utilisé.";
+  
+    return errors
+}
+
+// ===================================================

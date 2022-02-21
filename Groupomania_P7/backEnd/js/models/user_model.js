@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+//import Log from './../../../frontend/src/components/log/index';
 const db        = require('../../config/db');
 const bcrypt    = require("bcrypt");
 
@@ -43,15 +44,6 @@ const userSchema = db.define('users',
     hooks: 
     {
         beforeCreate: async (user) => 
-        {
-            if (user.password) 
-            {
-                const salt = await bcrypt.genSaltSync(10, 'a');
-                user.password = bcrypt.hashSync(user.password, salt);
-            }
-        },
-
-        beforeUpdate:async (user) => 
         {
             if (user.password) 
             {

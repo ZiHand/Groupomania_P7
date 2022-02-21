@@ -1,5 +1,7 @@
 const UserModel         = require('../models/user_model');
 const UserValidation    = require('../validations/user_validation');
+const bcrypt            = require("bcrypt");
+const { updateErrors } = require('../utils/errors_utils');
 
 
 // ===================================================
@@ -40,6 +42,15 @@ module.exports.getUser = (req, res) =>
 // ===================================================
 module.exports.updateUser = (req, res) => 
 {
+    const {body}    = req;
+
+    if (!req.params.id)
+        return res.status(400).send("ID unknown : " + req.params.id);
+
+    console.log(body.pseudo);
+    console.log(body.password);
+
+
     UserModel.findByPk(req.params.id, {attributes : {exclude : ["createdAt", "updatedAt", "password"]}})
     .then(user =>
     {
@@ -48,38 +59,35 @@ module.exports.updateUser = (req, res) =>
             return res.status(404).json({message : "User not found !"})
         }
 
-        let newUser = null;
-
         // Mean no image selected
         if (!req.file)
         {
-            if (req.body.id !== user.id)
+            if (req.params.id !== user.id)
             {
                 badStatus = 403;
                 errorMsg = " unauthorized request";
                 throw(errorMsg);
             }
 
-            newUser = new Sauce({...req.body});
+            if (body.pseudo)
+            {
+                user.pseudo = body.pseudo;
+            }
+
+            if (body.password)
+            {
+                const salt = bcrypt.genSaltSync(10, 'a');
+                user.password = bcrypt.hashSync(body.password, salt);
+            }
         }
         else
         {
-            if (JSON.parse(req.body.user).id !== user.userId)
-            {
-                badStatus = 403;
-                errorMsg = "unauthorized request";
-                throw(errorMsg);
-            }
 
-            newUser             = new Sauce(JSON.parse(req.body.user));
-            newUser.avatar_url  = `${req.protocol}://${req.get('host')}/resources/images/${req.file.filename}`;
         }
 
-        newUser.id = user.id;
+        console.log(JSON.stringify(user));
 
-        return newUser;
-
-        
+        return user;
     })
     .then(updateUser =>
     {
@@ -89,7 +97,11 @@ module.exports.updateUser = (req, res) =>
         {
             res.status(201).json({ message: 'User updated.'})
         })
-        .catch(error => res.status(500).json(error))
+        .catch(error =>
+        {
+            const errors = updateErrors(error);
+            res.status(200).json({ errors });
+        });
     })
     .catch(error => res.status(500).json(error))
 }

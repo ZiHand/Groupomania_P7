@@ -17,7 +17,6 @@ module.exports.checkUser = (req, res, next) =>
             if (error)
             {
                 res.locals.user = null;
-                //res.cookie('jwt', '', {maxAge : 1});
                 next();
             }
             else

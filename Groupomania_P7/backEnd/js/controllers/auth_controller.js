@@ -32,6 +32,8 @@ module.exports.signUp = async (req, res) =>
             const errors = signUpErrors(error);
             res.status(200).json({ errors });
         });
+
+    // Create modo if any
 }
 
 // ===================================================
