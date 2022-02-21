@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadPicture } from "../../actions/user_actions";
 import { updateUser } from './../../actions/user_actions';
@@ -17,6 +16,8 @@ const UdpateProfile = () =>
     const [controlPassword, setControlPassword] = useState("");
     const error                                 = useSelector((state) => state.errorReducer.userError);
 
+    //console.log("pseudo : " + userData.pseudo);
+
 
     let avatar_url = "./uploads/profil/" + userData.avatar_url;
 
@@ -27,7 +28,6 @@ const UdpateProfile = () =>
     {
         e.preventDefault();
 
-        
         const passwordError         = document.querySelector(".password.error");
         const passworConfirmdError  = document.querySelector(".password_confirm.error");
 
@@ -54,18 +54,17 @@ const UdpateProfile = () =>
             }
         }
         
-        data.append("file", file);
-        dispatch(uploadPicture(data, userData.id));
-        dispatch(updateUser(data, userData.id));
-    }
-
-    const changePicture = async () =>
-    {
-        //console.log("changePicture : " + JSON.stringify(file));
+        if (file)
+        {
+            data.append("file", file);
+            dispatch(uploadPicture(data, userData.id));
+        }
+        else
+        {
+            error.maxSize = "";
+        }
         
-        avatar_url = "./uploads/profil/" + file.name;
-        console.log(avatar_url);
-        console.log(file);
+        dispatch(updateUser(data, userData.id));
     }
 
     // ================================
@@ -75,10 +74,14 @@ const UdpateProfile = () =>
         <>
         <form action="" onSubmit={handleUpdate} className="update_profil">
             <div className='img_container'>
-                <img src={userData.avatar_url ? avatar_url : "./img/default_avatar2.png"} alt="Avatar utilisateur" title="Changer d'image" onClick={changePicture}/>  
-                <p>{error.maxSize}</p>
-                <p>{error.format}</p>
+                <img src={userData.avatar_url ? avatar_url : "./img/default_avatar2.png"} alt="Avatar utilisateur" title="Changer d'image" />  
             </div>
+
+            <p>{error.maxSize}</p>
+            <p>{error.format}</p>
+
+            <br />
+
             <label htmlFor="file" className="pict_label">Changer d'image</label>
             <input
             type="file"
@@ -88,7 +91,6 @@ const UdpateProfile = () =>
             onChange={(e) => 
                 {
                     setFile(e.target.files[0]);
-                    //changePicture();
                 }}
             />
             
@@ -98,7 +100,7 @@ const UdpateProfile = () =>
               name="pseudo" 
               id="pseudo" 
               onChange={(e) => setPseudo(e.target.value)} 
-              value= {pseudo}
+              //value= {userData.pseudo}
               className="form_item"
           />
 

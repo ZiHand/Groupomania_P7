@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import UploadImg from "./uploadImg";
 import UdpateProfile from './updateprofile';
 
 
 const Editprofile = () => 
 {
-    const userData      = useSelector((state) => state.userReducer);
-    const error         = useSelector((state) => state.errorReducer.userError);
-    const avatar_url    = "./uploads/profil/" + userData.avatar_url;
+    const userData = useSelector((state) => state.userReducer);
 
     return (
         <div className='profil_container'>
