@@ -1,7 +1,10 @@
 const UserModel         = require('../models/user_model');
-const UserValidation    = require('../validations/user_validation');
 const bcrypt            = require("bcrypt");
-const { updateErrors } = require('../utils/errors_utils');
+const { updateErrors }  = require('../utils/errors_utils');
+
+const db                = require("../../config/db");
+const User              = db.user;
+const Posts             = db.post;
 
 
 // ===================================================
@@ -59,30 +62,22 @@ module.exports.updateUser = (req, res) =>
             return res.status(404).json({message : "User not found !"})
         }
 
-        // Mean no image selected
-        if (!req.file)
+        if (req.params.id !== user.id)
         {
-            if (req.params.id !== user.id)
-            {
-                badStatus = 403;
-                errorMsg = " unauthorized request";
-                throw(errorMsg);
-            }
-
-            if (body.pseudo)
-            {
-                user.pseudo = body.pseudo;
-            }
-
-            if (body.password)
-            {
-                const salt = bcrypt.genSaltSync(10, 'a');
-                user.password = bcrypt.hashSync(body.password, salt);
-            }
+            badStatus = 403;
+            errorMsg = " unauthorized request";
+            throw(errorMsg);
         }
-        else
-        {
 
+        if (body.pseudo)
+        {
+            user.pseudo = body.pseudo;
+        }
+
+        if (body.password)
+        {
+            const salt = bcrypt.genSaltSync(10, 'a');
+            user.password = bcrypt.hashSync(body.password, salt);
         }
 
         console.log(JSON.stringify(user));

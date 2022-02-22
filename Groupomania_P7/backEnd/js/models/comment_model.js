@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db        = require('../../config/db');
+const UserModel = require('./user_model');
 
 // ===================================================
 //                 Comment Model
@@ -23,6 +24,8 @@ const commentSchema = db.define('comments',
         type            : Sequelize.DataTypes.STRING(500)
     }
 });
+
+//commentSchema.belongsTo(UserModel, { foreignKey: "userId", as: "user" });
 
 // ===================================================
 //                 Post Export

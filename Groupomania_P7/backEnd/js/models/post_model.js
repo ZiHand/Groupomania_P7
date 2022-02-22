@@ -1,5 +1,7 @@
-const Sequelize = require('sequelize');
-const db        = require('../../config/db');
+const Sequelize     = require('sequelize');
+const db            = require('../../config/db');
+const CommentModel  = require("./comment_model");
+const UserModel     = require("./user_model");
 
 // ===================================================
 //                 Post Model
@@ -34,6 +36,9 @@ const postSchema = db.define('posts',
         empty           : true
     }
 });
+
+
+postSchema.hasMany(CommentModel, { as: "comments" });
 
 // ===================================================
 //                 Post Export

@@ -2,6 +2,9 @@ const Sequelize = require('sequelize');
 //import Log from './../../../frontend/src/components/log/index';
 const db        = require('../../config/db');
 const bcrypt    = require("bcrypt");
+const PostModel = require('./post_model');
+const CommentModel = require('./comment_model');
+const ModeratorModel = require('./moderator_model');
 
 // ===================================================
 //                 User Model
@@ -37,6 +40,11 @@ const userSchema = db.define('users',
     {
         type            : Sequelize.DataTypes.STRING,
         defaultValue    : "default_avatar2.png",
+        allowNull       : true
+    },
+    moderator_id :
+    {
+        type            : Sequelize.UUID,
         allowNull       : true
     }
 },
@@ -99,6 +107,10 @@ userSchema.login = async function (email, password)
 
     return user;
 };
+
+userSchema.hasMany(PostModel, { as: "posts" });
+userSchema.hasMany(CommentModel, { as: "comments" });
+userSchema.belongsTo(ModeratorModel, { foreignKey: "modId", as: "moderator" });
 
 // ===================================================
 //                 User Export

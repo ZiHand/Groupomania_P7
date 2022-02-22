@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db        = require('../../config/db');
+const UserModel = require('./user_model');
 
 // ===================================================
 //                Moderator Model
@@ -17,8 +18,10 @@ const moderatorSchema = db.define('moderators',
     {
         type            : Sequelize.UUID,
         allowNull       : false
-    },
+    }
 });
+
+//moderatorSchema.belongsTo(UserModel, { foreignKey: "userId", as: "user" });
 
 // ===================================================
 //                Moderator Export
