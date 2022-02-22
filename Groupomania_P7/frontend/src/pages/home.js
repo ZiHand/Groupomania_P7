@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { UidContext } from '../components/app_context';
+import WhatsNew from './../components/post/whatsNew';
 
 const Home = () => 
 {
@@ -23,9 +24,7 @@ const Home = () =>
     const renderLogged = () => 
     {
         return (
-            <div>
-                Home Page
-            </div>
+            <WhatsNew />
         );
     }
 
