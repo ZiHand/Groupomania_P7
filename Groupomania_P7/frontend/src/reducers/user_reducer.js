@@ -1,5 +1,7 @@
 
 import { GET_USER, UPLOAD_PICTURE, UPDATE_USER_NAME } from './../actions/user_actions';
+
+
 const initialState = {};
 
 export default function userReducer(state = initialState, action)

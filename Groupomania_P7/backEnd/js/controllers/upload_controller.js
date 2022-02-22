@@ -32,7 +32,9 @@ module.exports.uploadProfil = async (req, res) =>
     }
 
     // picture name goes unique
-    const fileName = req.body.name + ".jpg";
+    console.log("picture name goes unique ******************");
+    console.log(req.body);
+    const fileName = req.body.pseudo + ".jpg";
 
     // Create the file
     const filedir = path.normalize(`${__dirname}/../../../frontend/public/uploads/profil/${fileName}`);

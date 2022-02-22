@@ -21,9 +21,18 @@ module.exports.checkUser = (req, res, next) =>
             }
             else
             {
-                let user        = await UserModel.findByPk(decodedToken.id, {attributes : {exclude : ["createdAt", "updatedAt", "password"]}});
-                res.locals.user = user;
-                next();
+                try
+                {
+                    let user        = await UserModel.findByPk(decodedToken.id, {attributes : {exclude : ["createdAt", "updatedAt", "password"]}});
+                    res.locals.user = user;
+                    next();
+                } 
+                catch (error) 
+                {
+                    res.locals.user = null;
+                    next();
+                }
+                
             }
         })
     }

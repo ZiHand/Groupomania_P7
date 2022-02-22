@@ -42,11 +42,6 @@ const userSchema = db.define('users',
         defaultValue    : "default_avatar2.png",
         allowNull       : true
     },
-    moderator_id :
-    {
-        type            : Sequelize.UUID,
-        allowNull       : true
-    }
 },
 {
     hooks: 

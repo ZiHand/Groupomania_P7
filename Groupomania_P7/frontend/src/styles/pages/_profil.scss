@@ -1,5 +1,7 @@
 .profil_page {
-  .profil_container {
+
+  .profil_container 
+  {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,7 +10,8 @@
     min-height: 100%;
   }
 
-  .update_container {
+  .update_container 
+  {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -27,8 +30,19 @@
         text-align: center;
       }
 
-      .img_container
+      .img_container 
       {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: white;
+        align-items: center;
+        align-content: center;
+        width: 140px;
+        height: 140px;
+        text-align: center;
+        border-radius: 50%;
+
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 20px;
@@ -43,24 +57,16 @@
           box-shadow: 0 0 6px rgba(51, 51, 51, 0.363);
           cursor: pointer;
         }
-
       }
 
-    
-      label {
+      label 
+      {
         position: relative;
-        //transform: translate(-50%, -50%);
-        width: 270px;
+        width: 280px;
         color: white;
-        
         display: inline-block;
-        //margin-top: 10px;
-        //margin-bottom: 10px;
-        //padding: 9px 0;
         transition: 0.2s;
         z-index: 10;
-        cursor: pointer;
-
         display: block;
         text-align: left;
         line-height: 100%;
@@ -76,16 +82,11 @@
         color: black;
         border-radius: 50%;
         display: inline-block;
-        /*margin-top: 10px;
-        margin-left: 10px;*/
-        //margin-bottom: 10px;
         padding: 9px 0;
         transition: 0.2s;
         z-index: 10;
         cursor: pointer;
         opacity: 0;
-
-        //display: block;
         text-align: center;
         line-height: 150%;
         
@@ -96,17 +97,42 @@
         position:absolute;
         transform: translate(-55px, -120px);
         cursor: pointer;
-        //padding: 10px 20px;
         opacity: 0;
         height: 10px;
         max-width: 100px;
       }
 
-      input[type="submit"] {
-        //margin-top: 50px;
-        border-radius: 15px;
+      .modo_container
+      {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 30px;
+      }
 
-        &:hover {
+      .modo_pass_container
+      {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 80px;
+        
+        .modo_pass_label
+        {
+          text-align: left;
+        }
+      }
+
+      
+
+      input[type="submit"] 
+      {
+        border-radius: 15px;
+        width: 100%;
+
+        &:hover 
+        {
           letter-spacing: 1px;
         }
       }
@@ -116,28 +142,5 @@
         transform: translate(0px, -150px);
       }
     }
-  }
-
-  .img_container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: white;
-    align-items: center;
-    align-content: center;
-    width: 140px;
-    height: 140px;
-    text-align: center;
-    border-radius: 50%;
-
-    /*img {
-      margin: auto;
-      display: block;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      padding: 5px;
-      width: 150px;
-    }*/
-    
   }
 }

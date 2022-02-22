@@ -11,6 +11,7 @@ export const UPDATE_USER_ERRORS = "UPDATE_USER_ERRORS";
 // ================================
 export const getUser = (uid) => 
 {
+  // dispatch will send to reducers
   return (dispatch) => 
   {
     return axios

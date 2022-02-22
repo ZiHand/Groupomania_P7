@@ -7,13 +7,13 @@ import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
+// Dev tools
 import {composeWithDevTools} from 'redux-devtools-extension';
 import logger from 'redux-logger';
 
-const store = createStore(
-  rootReducer, 
-  composeWithDevTools(applyMiddleware(thunk, logger))
-);
+// Create the Redux Store
+// For production remove the dev tools and logger !!
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, logger)));
 
 ReactDOM.render(
   <React.StrictMode>
