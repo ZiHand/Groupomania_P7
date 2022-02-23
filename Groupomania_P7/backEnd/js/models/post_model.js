@@ -15,11 +15,6 @@ const postSchema = db.define('posts',
         primaryKey      : true,
         allowNull       : false
     },
-    ownerId : 
-    {
-        type            : Sequelize.UUID,
-        allowNull       : false
-    },
     message : 
     {
         type            : Sequelize.DataTypes.STRING(500),

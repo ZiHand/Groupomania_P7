@@ -14,11 +14,6 @@ const commentSchema = db.define('comments',
         primaryKey      : true,
         allowNull       : false
     },
-    ownerId : 
-    {
-        type            : Sequelize.UUID,
-        allowNull       : false
-    },
     message : 
     {
         type            : Sequelize.DataTypes.STRING(500)
