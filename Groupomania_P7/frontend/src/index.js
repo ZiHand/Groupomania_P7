@@ -10,10 +10,13 @@ import rootReducer from './reducers';
 // Dev tools
 import {composeWithDevTools} from 'redux-devtools-extension';
 import logger from 'redux-logger';
+import { getUsers } from './actions/users_actions';
 
 // Create the Redux Store
 // For production remove the dev tools and logger !!
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, logger)));
+
+store.dispatch(getUsers());
 
 ReactDOM.render(
   <React.StrictMode>

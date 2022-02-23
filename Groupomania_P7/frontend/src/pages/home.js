@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { UidContext } from '../components/app_context';
+import Thread from '../components/thread';
 import WhatsNew from './../components/post/whatsNew';
 
 const Home = () => 
@@ -24,7 +25,13 @@ const Home = () =>
     const renderLogged = () => 
     {
         return (
-            <WhatsNew />
+            <div className='home'>
+                <div className='main'>
+                    <Thread />
+                </div>
+            </div>
+            
+            // <WhatsNew />
         );
     }
 

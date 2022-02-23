@@ -20,10 +20,59 @@ module.exports.createPost = (req, res) =>
     }
 
     // Check if owner id is valid
+    let filaName;
+
+    try 
+    {
+        if (!req.file)
+        {
+            console.log("Upload error : req.file == null");
+            throw Error("no file");
+        }
+        
+        // Check file format & size
+        if (req.file.detectedMimeType  != "image/jpg" &&
+            req.file.detectedMimeType  != "image/png" &&
+            req.file.detectedMimeType  != "image/jpeg")
+        {
+            throw Error("invalid file");
+        }
+        
+        if (req.file.size > 500000) throw Error("max size");
+    }
+    catch (err)
+    {
+        const errors = uploadErrors(err);
+        return res.status(201).json({ errors });
+    }
+
+    
 
     PostModel.create({...body})
         .then((post) => 
         {
+            filaName = post.id + Date.now() + ".jpg";
+            const filedir = path.normalize(`${__dirname}/../../../frontend/public/uploads/post/${fileName}`);
+
+            try 
+            {
+                const file = fs.createWriteStream(filedir, {flags: 'w'});
+
+                file.on('error',  (error) => 
+                {
+                    console.log(`An error occured while writing to the file. Error: ${error.message}`);
+                    file.end();
+                    throw Error(error);
+                });
+
+                pipeline(req.file.stream, file);
+            }
+            catch (error)
+            {
+                console.log('pipeline failed with error:', error);
+                return res.status(500).send({ message: "Creating file error" });
+            }
+
             res.status(201).json({ message: `Post added : ${post.id}`});
         })
         .catch(error =>
@@ -40,20 +89,13 @@ module.exports.getPosts = (req, res) =>
 {
     PostModel.findAll(
     {
-        include: [
-            {
-              model: CommentModel,
-              as: "comments",
-              attributes: ["id", "message"],
-              through: {attributes: [],}
-            },
-          ],
+
     })
-        .then( posts =>
-        {
-            res.status(200).json(posts);
-        })
-        .catch(error => res.status(500).json(error))
+    .then( posts =>
+    {
+        res.status(200).json(posts);
+    })
+    .catch(error => res.status(500).json(error))
 }
 
 // ===================================================
@@ -65,16 +107,7 @@ module.exports.getPost = (req, res) =>
 
     PostModel.findByPk(id, 
     {
-        include: [
-            {
-              model: CommentModel,
-              as: "comments",
-              attributes: ["id", "message"],
-              through: {
-                attributes: [],
-              }
-            },
-          ],
+    
     })
     .then(post =>
     {
