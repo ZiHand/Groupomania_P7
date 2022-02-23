@@ -56,19 +56,21 @@ const Card = ({post}) =>
                                 <span>{dateParser(post.createdAt)}</span>
                             </div>
                             <p>{post.message}</p>
-                            {post.picture && <img src={pict_url + post.picture} alt="card-pic" className="card_pic"/>}
-                            {post.video && (
-                                <iframe
-                                    width="500"
-                                    height="300"
-                                    src={validateYoutubeVideo(post.video)}
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                    title={post.id}
-                                >
-                                </iframe>
-                                )
-                            }
+                            <div className="post_content">
+                                {post.picture && <img src={pict_url + post.picture} alt="card-pic" className="card_pic"/>}
+                                {post.video && (
+                                    <iframe
+                                        width="500"
+                                        height="300"
+                                        src={validateYoutubeVideo(post.video)}
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        title={post.id}
+                                    >
+                                    </iframe>
+                                    )
+                                }
+                            </div>
                         </div>
                     </>
                 )

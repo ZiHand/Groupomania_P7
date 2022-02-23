@@ -118,7 +118,7 @@ const UdpateProfile = () =>
             type="file"
             id="file"
             name="file"
-            accept=".jpg, .jpeg, .png"
+            accept=".jpg, .jpeg, .png, .gif"
             onChange={(e) => {setFile(e.target.files[0]);}}
             />
             
