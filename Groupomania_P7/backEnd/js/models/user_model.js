@@ -103,9 +103,9 @@ userSchema.login = async function (email, password)
     return user;
 };
 
-userSchema.hasMany(PostModel, { as: "posts" });
-userSchema.hasMany(CommentModel, { as: "comments" });
-userSchema.belongsTo(ModeratorModel, { foreignKey: "modId", as: "moderator" });
+//userSchema.hasMany(PostModel, { as: "posts" });
+//userSchema.hasMany(CommentModel, { as: "comments" });
+//userSchema.belongsTo(ModeratorModel, { foreignKey: "modId", as: "moderator" });
 
 // ===================================================
 //                 User Export

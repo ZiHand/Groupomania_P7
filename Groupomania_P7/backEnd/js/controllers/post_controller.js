@@ -1,4 +1,5 @@
 const PostModel         = require('../models/post_model');
+const UserModel         = require('../models/user_model');
 const CommentModel      = require('../models/comment_model');
 const PostValidation    = require('../validations/post_validation');
 
@@ -7,8 +8,26 @@ const PostValidation    = require('../validations/post_validation');
 // ===================================================
 module.exports.createPost = (req, res) => 
 {
+    const {id}      = req.params;
     const {body}    = req;
     const {error}   = PostValidation(body);
+    let User;
+
+    console.log(id);
+
+    // Find corresponding user:
+    UserModel.findByPk(id, {attributes : {exclude : ["createdAt", "updatedAt", "password"]}})
+    .then(user =>
+    {
+        if (!user)
+        {
+            return res.status(400).json({message : `User not found : ${id}`})
+        }
+
+        User = user;
+    })
+    .catch(error => res.status(500).json(error))
+
 
     if (error) return res.status(401).json(error.details[0].message);
 
@@ -24,21 +43,18 @@ module.exports.createPost = (req, res) =>
 
     try 
     {
-        if (!req.file)
+        if (req.file)
         {
-            console.log("Upload error : req.file == null");
-            throw Error("no file");
-        }
+            // Check file format & size
+            if (req.file.detectedMimeType  != "image/jpg" &&
+                req.file.detectedMimeType  != "image/png" &&
+                req.file.detectedMimeType  != "image/jpeg")
+            {
+                throw Error("invalid file");
+            }
         
-        // Check file format & size
-        if (req.file.detectedMimeType  != "image/jpg" &&
-            req.file.detectedMimeType  != "image/png" &&
-            req.file.detectedMimeType  != "image/jpeg")
-        {
-            throw Error("invalid file");
+            if (req.file.size > 500000) throw Error("max size");
         }
-        
-        if (req.file.size > 500000) throw Error("max size");
     }
     catch (err)
     {
@@ -46,32 +62,42 @@ module.exports.createPost = (req, res) =>
         return res.status(201).json({ errors });
     }
 
-    
+    let argsArray = {...body};
+    //argsArray.push();
+    //console.log(argsArray);
 
     PostModel.create({...body})
         .then((post) => 
         {
-            filaName = post.id + Date.now() + ".jpg";
-            const filedir = path.normalize(`${__dirname}/../../../frontend/public/uploads/post/${fileName}`);
-
-            try 
+            /*if (post.picture)
             {
-                const file = fs.createWriteStream(filedir, {flags: 'w'});
+                filaName = post.id + Date.now() + ".jpg";
+                const filedir = path.normalize(`${__dirname}/../../../frontend/public/uploads/post/${fileName}`);
 
-                file.on('error',  (error) => 
+                try 
                 {
-                    console.log(`An error occured while writing to the file. Error: ${error.message}`);
-                    file.end();
-                    throw Error(error);
-                });
+                    const file = fs.createWriteStream(filedir, {flags: 'w'});
 
-                pipeline(req.file.stream, file);
-            }
-            catch (error)
-            {
-                console.log('pipeline failed with error:', error);
-                return res.status(500).send({ message: "Creating file error" });
-            }
+                    file.on('error',  (error) => 
+                    {
+                        console.log(`An error occured while writing to the file. Error: ${error.message}`);
+                        file.end();
+                        throw Error(error);
+                    });
+
+                    pipeline(req.file.stream, file);
+                }
+                catch (error)
+                {
+                    console.log('pipeline failed with error:', error);
+                    return res.status(500).send({ message: "Creating file error" });
+                }
+            }*/
+            
+
+            console.log("Adding user");
+
+            post.setUser(User);
 
             res.status(201).json({ message: `Post added : ${post.id}`});
         })
@@ -89,7 +115,7 @@ module.exports.getPosts = (req, res) =>
 {
     PostModel.findAll(
     {
-
+        include: [UserModel]
     })
     .then( posts =>
     {
@@ -107,7 +133,7 @@ module.exports.getPost = (req, res) =>
 
     PostModel.findByPk(id, 
     {
-    
+        include: [UserModel]
     })
     .then(post =>
     {

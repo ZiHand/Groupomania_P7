@@ -7,6 +7,10 @@ const db                        = require('../config/db');
 const {checkUser, requireAuth}  = require('./middlewares/auth_middleware');
 const cors                      = require('cors');
 
+const UserModel                 = require('./models/user_model');
+const PostModel                 = require('./models/post_model');
+const CommentModel              = require('./models/comment_model');
+
 // ===================================================
 //                 Express App Creation
 // ===================================================
@@ -54,6 +58,13 @@ app.use('/api/comment', commentRoutes);
 // ===================================================
 //                 DB Connection
 // ===================================================
+// https://www.youtube.com/watch?v=VsrQUXSe56k
+UserModel.hasMany(PostModel, { as: "posts" });
+//UserModel.hasMany(CommentModel, { as: "comments" });
+PostModel.belongsTo(UserModel);
+//PostModel.hasMany(CommentModel, { as: "comments" });
+//CommentModel.belongsTo(PostModel);
+
 db.sync()
     .then(() =>
     {

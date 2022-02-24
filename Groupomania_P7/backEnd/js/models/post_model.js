@@ -32,8 +32,8 @@ const postSchema = db.define('posts',
     }
 });
 
-
-postSchema.hasMany(CommentModel, { as: "comments" });
+//postSchema.hasOne(UserModel, { foreignKey: "ownerId", as: "user" });
+//postSchema.hasMany(CommentModel, { as: "comments" });
 
 // ===================================================
 //                 Post Export
