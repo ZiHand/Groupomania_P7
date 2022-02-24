@@ -13,8 +13,6 @@ module.exports.createPost = (req, res) =>
     const {error}   = PostValidation(body);
     let User;
 
-    console.log(id);
-
     // Find corresponding user:
     UserModel.findByPk(id, {attributes : {exclude : ["createdAt", "updatedAt", "password"]}})
     .then(user =>
@@ -225,7 +223,7 @@ module.exports.addComment = (req, res) =>
         {
             if (!comment) 
             {
-            res.status(404).json({ message: 'Comment not found !'});
+                res.status(404).json({ message: 'Comment not found !'});
             }
 
             post.addComment(comment);

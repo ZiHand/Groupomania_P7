@@ -1,5 +1,6 @@
 const CommentModel         = require('../models/comment_model');
 const PostModel            = require('../models/post_model');
+const UserModel            = require('../models/user_model');
 const CommentValidation    = require('../validations/post_validation');
 
 // ===================================================
@@ -7,8 +8,9 @@ const CommentValidation    = require('../validations/post_validation');
 // ===================================================
 module.exports.createComment = (req, res) => 
 {
-    const {body}    = req;
-    const {error}   = CommentValidation(body);
+    const {postId, userId}  = req.params;
+    const {body}            = req;
+    const {error}           = CommentValidation(body);
 
     if (error) return res.status(401).json(error.details[0].message);
 
@@ -20,11 +22,45 @@ module.exports.createComment = (req, res) =>
     }
 
     // Check if owner id is valid
+    let User;
+    let Post;
+
+    // Find corresponding user:
+    UserModel.findByPk(userId, {attributes : {exclude : ["createdAt", "updatedAt", "password"]}})
+    .then(user =>
+    {
+        if (!user)
+        {
+            return res.status(400).json({message : `User not found : ${userId}`})
+        }
+
+        User = user;
+    })
+    .catch(error => res.status(500).json(error))
+
+    // Find corresponding post:
+    PostModel.findByPk(postId, {attributes : {exclude : ["createdAt", "updatedAt"]}})
+    .then(post =>
+    {
+        if (!post)
+        {
+            return res.status(400).json({message : `Post not found : ${postId}`})
+        }
+
+        Post = post;
+    })
+    .catch(error => res.status(500).json(error))
+
+
 
     CommentModel.create({...body})
-        .then((post) => 
+        .then((comment) => 
         {
-            res.status(201).json({ message: `Comment added : ${post.id}`});
+            //console.log("User : " + JSON.stringify(User));
+            comment.setUser(User);
+            //console.log("Comment : " + JSON.stringify(comment));
+            comment.setPost(Post);
+            res.status(201).json({ message: `Comment added : ${comment.id}`});
         })
         .catch(error =>
         {
@@ -40,16 +76,7 @@ module.exports.getComments = (req, res) =>
 {
     CommentModel.findAll(
     {
-        include: [
-            {
-              model: PostModel,
-              as: "posts",
-              attributes: ["id", "message", "image", "video"],
-              through: {
-                attributes: [],
-              },
-            },
-          ],
+        include: [UserModel, PostModel]
     })
     .then( comments =>
     {
@@ -70,13 +97,17 @@ module.exports.getComment = (req, res) =>
         include: [
             {
               model: PostModel,
-              as: "posts",
-              attributes: ["id", "message", "image", "video"],
-              through: {
-                attributes: [],
-              }
+              as: "post",
+              attributes: ["id"],
             },
+            {
+                model: UserModel,
+                as: "user",
+                attributes: ["id", "pseudo", "avatar_url"],
+              },
           ],
+
+          //include: [UserModel, PostModel]
     })
     .then(comment =>
     {

@@ -4,7 +4,7 @@ const commentController = require('../controllers/comment_controller');
 // ===================================================
 //                 Routes Definitions
 // ===================================================
-router.post('/', commentController.createComment); 
+router.post('/:userId/:postId', commentController.createComment); 
 router.get('/getAll', commentController.getComments); 
 router.get('/:id', commentController.getComment);
 router.put('/:id', commentController.updateComment);

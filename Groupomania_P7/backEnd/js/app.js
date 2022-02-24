@@ -60,10 +60,11 @@ app.use('/api/comment', commentRoutes);
 // ===================================================
 // https://www.youtube.com/watch?v=VsrQUXSe56k
 UserModel.hasMany(PostModel, { as: "posts" });
-//UserModel.hasMany(CommentModel, { as: "comments" });
+UserModel.hasMany(CommentModel, { as: "comments" });
 PostModel.belongsTo(UserModel);
-//PostModel.hasMany(CommentModel, { as: "comments" });
-//CommentModel.belongsTo(PostModel);
+PostModel.hasMany(CommentModel, { as: "comments" });
+CommentModel.belongsTo(PostModel);
+CommentModel.belongsTo(UserModel);
 
 db.sync()
     .then(() =>
