@@ -124,7 +124,7 @@ module.exports.getPosts = (req, res) =>
             {
                 model: CommentModel,
                 as: "comments",
-                attributes: ["id", "message", "createdAt", "updatedAt"],
+                attributes: ["id", "message", "createdAt", "userId"],
               },
         ],
     })
@@ -156,7 +156,7 @@ module.exports.getPost = (req, res) =>
             {
                 model: CommentModel,
                 as: "comments",
-                attributes: ["id", "message", "createdAt", "updatedAt"],
+                attributes: ["id", "message", "createdAt", "userId"],
               },
         ],
     })

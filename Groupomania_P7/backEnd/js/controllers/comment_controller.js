@@ -59,21 +59,14 @@ module.exports.createComment = (req, res) =>
     CommentModel.create({...body})
         .then((comment) => 
         {
-            //console.log("createPost setComment");
-            //Post.setComments(comment);
-            //console.log("User : " + JSON.stringify(User));
             comment.setUser(User);
-            //console.log("Comment : " + JSON.stringify(comment));
             comment.setPost(Post);
 
-            //console.log("Comment : " + JSON.stringify(comment));
-            
             res.status(201).json({ message: `Comment added : ${comment.id}`});
         })
         .catch(error =>
         {
             console.log(error);
-            //const errors = signUpErrors(error);
             res.status(200).json({ error });
         });
 
@@ -87,7 +80,6 @@ module.exports.createComment = (req, res) =>
     })
     .then((comments) =>
     {
-        console.log("Post setComment");
         Post.setComments(comments);
     })
     .catch(error =>

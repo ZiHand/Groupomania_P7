@@ -15,7 +15,6 @@ const Card = ({post}) =>
     const dispatch      = useDispatch();
     const usersData     = useSelector((state) => state.usersReducer);
     const userData      = useSelector((state) => state.userReducer);
-    const postData      = useSelector((state) => state.postReducer);
     const profil_pic    = "./uploads/profil/";
     const pict_url      = "./uploads/post/";
 

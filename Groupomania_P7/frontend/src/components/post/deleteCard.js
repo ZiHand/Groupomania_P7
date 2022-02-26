@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from "react-redux";
 import { deletePost } from '../../actions/post_actions';
 
+// Used to avoid window confirm loop !
 const DeleteCard = (props) => 
 {
     const dispatch = useDispatch();
