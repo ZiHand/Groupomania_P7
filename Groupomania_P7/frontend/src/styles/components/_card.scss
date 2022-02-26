@@ -68,7 +68,6 @@
     margin: 2px 0 4px;
     min-height: 35px;
 
-
     .pseudo
     {
       display: flex;
@@ -85,8 +84,19 @@
         font-size: 11px;
       }
     }
+  }
 
-    
+  .update_post
+  {
+    textarea
+    {
+      font-size: 1.2rem;
+      border: 1px solid $color_back_def;
+      padding: 10px;
+      border-radius: 20px 20px 6px 20px;
+      min-width: 100%;
+      min-height: 150px;
+    }
   }
 
   .post_content

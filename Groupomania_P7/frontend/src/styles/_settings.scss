@@ -56,6 +56,16 @@ textarea {
   }
 }
 
+::-moz-selection { /* Code for Firefox */
+  color: black;
+  background: $color_back_def;
+}
+
+::selection {
+  color: black;
+  background: $color_back_def;
+}
+
 button,
 input[type="submit"] {
   background: $color_white;

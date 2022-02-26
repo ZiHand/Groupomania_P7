@@ -24,8 +24,6 @@ const Card = ({post}) =>
     // ================================
     const editPost = () => 
     {
-        console.log("editPost");
-        console.log(textUpdate);
         if (textUpdate) 
         {
             dispatch(updatePost(post.id, textUpdate));
