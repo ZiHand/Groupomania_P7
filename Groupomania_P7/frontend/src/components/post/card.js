@@ -1,18 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { dateParser, isEmpty, validateYoutubeVideo } from './../utils';
-import CommentCard from './card_comments';
 import Comments from './../comments';
+import DeleteCard from './deleteCard';
+import { updatePost } from '../../actions/post_actions';
 
 const Card = ({post}) => 
 {
     const [isLoading, setIsLoading]         = useState(true);
+    const [isUpdated, setIsUpdated]         = useState(false);
+    const [textUpdate, setTextUpdate]       = useState(null);
     const [showComments, setShowComments]   = useState(false);
 
+    const dispatch      = useDispatch();
     const usersData     = useSelector((state) => state.usersReducer);
+    const userData      = useSelector((state) => state.userReducer);
     const postData      = useSelector((state) => state.postReducer);
     const profil_pic    = "./uploads/profil/";
     const pict_url      = "./uploads/post/";
+
+    // ================================
+    // editPost
+    // ================================
+    const editPost = () => 
+    {
+        console.log("editPost");
+        console.log(textUpdate);
+        if (textUpdate) 
+        {
+            dispatch(updatePost(post.id, textUpdate));
+        }
+        setIsUpdated(false);
+    }
 
     // ================================
     // useEffect
@@ -89,7 +108,20 @@ const Card = ({post}) =>
     {
         return (
             <>
-            <p>{post.message}</p>
+            {isUpdated === false && <p>{post.message}</p>}
+            {isUpdated && (
+              <div className="update_post">
+                <textarea
+                  defaultValue={post.message}
+                  onChange={(e) => setTextUpdate(e.target.value)}
+                />
+                <div className="button_container">
+                  <button className="btn" onClick={editPost}>
+                    Valider modification
+                  </button>
+                </div>
+              </div>
+            )}
             <div className="post_content">
                 {post.picture && <img src={pict_url + post.picture} alt="card-pic" className="card_pic"/>}
                 {post.video && (
@@ -118,6 +150,19 @@ const Card = ({post}) =>
             <>
             <div className="card_footer">
                 <div className="edit_container">
+                    <div className="edit_icon"> {userData.id === post.userId && (
+                        <img
+                        onClick={() => setIsUpdated(!isUpdated)}
+                        src="./img/icons/edit.svg"
+                        alt="editer"
+                        title="Editer"
+                        />
+                    )}
+                    </div>
+                    <div className="delete_icon"> {userData.id === post.userId && (
+                        <DeleteCard id={post.id} />
+                    )}
+                    </div>
                     <div className="comment_icon">
                         <img
                         onClick={() => setShowComments(!showComments)}

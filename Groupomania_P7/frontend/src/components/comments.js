@@ -9,6 +9,7 @@ const Comments = ({post}) =>
     const [loadComments, setLoadComments]   = useState(true);
 
     const comments  = useSelector((state) => state.commentReducer);
+    const postData  = useSelector((state) => state.postReducer);
     const dispatch  = useDispatch();
 
     // ================================

@@ -119,21 +119,27 @@
 
   .edit_container
   {
-    .comment_icon
-    {
-      img
-      {
-        width: 35px;
-        height: 35px;
-        min-width: 25px;
-        min-height: 25px;
-        filter: invert(73%) sepia(4%) saturate(200%) hue-rotate(314deg) brightness(121%) contrast(101%);
-      }
+    display: flex;
+    flex-direction: row;
 
-      img:hover
-      {
-        filter: invert(73%) sepia(4%) saturate(800%) hue-rotate(314deg) brightness(121%) contrast(101%);
-      }
+    img
+    {
+      width: 35px;
+      height: 35px;
+      min-width: 25px;
+      min-height: 25px;
+      filter: invert(73%) sepia(4%) saturate(200%) hue-rotate(314deg) brightness(121%) contrast(101%);
+    }
+
+    img:hover
+    {
+      filter: invert(73%) sepia(4%) saturate(800%) hue-rotate(314deg) brightness(121%) contrast(101%);
+    }
+
+    span
+    {
+      display: inline-flex;
+      align-items: center;
     }
   }
 
