@@ -3,7 +3,7 @@ const Joi = require("joi");
 // ===================================================
 //                 Comment Validation
 // ===================================================
-const commentValidation = (post) =>
+const commentValidation = (comment) =>
 {
     const commentSchema = Joi.object
     (
@@ -13,7 +13,7 @@ const commentValidation = (post) =>
         }
     )
 
-    return commentSchema.validate(post);
+    return commentSchema.validate(comment);
 }
 
 // ===================================================

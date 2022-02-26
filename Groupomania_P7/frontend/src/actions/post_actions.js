@@ -5,6 +5,10 @@ export const ADD_POST    = "ADD_POST";
 export const UPDATE_POST = "UPDATE_POST";
 export const DELETE_POST = "DELETE_POST";
 
+export const ADD_COMMENT    = "ADD_COMMENT";
+export const EDIT_COMMENT   = "EDIT_COMMENT";
+export const DELETE_COMMENT = "DELETE_COMMENT";
+
 // ================================
 // getPosts
 // ================================
@@ -82,6 +86,27 @@ export const deletePost = (postId) =>
         .then((res) => 
         {
           dispatch({ type: DELETE_POST, payload: { postId } });
+        })
+        .catch((err) => console.log(err));
+  };
+};
+
+// ================================
+// addComment
+// ================================
+export const addComment = (postId, commenterId, message) => 
+{
+  return async (dispatch) => 
+  {
+    await axios(
+      {
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}api/comment/${commenterId}/${postId}`,
+        data: { message },
+      })
+        .then((res) => 
+        {
+          dispatch({ type: ADD_COMMENT, payload: { postId } });
         })
         .catch((err) => console.log(err));
   };

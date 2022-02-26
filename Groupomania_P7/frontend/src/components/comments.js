@@ -1,28 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getcomments } from './../actions/comment_actions';
 import { isEmpty } from './utils';
-import CommentCard from './post/card_comments';
+import { addComment } from '../actions/post_actions';
+import { getPosts } from './../actions/post_actions';
 
 const Comments = ({post}) => 
 {    
-    const [loadComments, setLoadComments]   = useState(true);
+    const [text, setText] = useState("");
 
-    const comments  = useSelector((state) => state.commentReducer);
-    const postData  = useSelector((state) => state.postReducer);
-    const dispatch  = useDispatch();
+    const userData = useSelector((state) => state.userReducer);
+    const dispatch = useDispatch();
 
-    // ================================
-    // useEffect
-    // ================================
-    useEffect(() => 
+    const handleComment = (e) => 
     {
-        if (loadComments)
+        e.preventDefault();
+
+        console.log(post.id);
+        console.log(userData.id);
+        console.log(userData.pseudo);
+    
+        if (text) 
         {
-            dispatch(getcomments(post.id));
-            setLoadComments(false);
+          dispatch(addComment(post.id, userData.id, text))
+            .then(() => dispatch(getPosts()))
+            .then(() => setText(''));
         }
-    }, [loadComments, dispatch, post])
+      };
 
 
     // ================================
@@ -30,16 +33,19 @@ const Comments = ({post}) =>
     // ================================
     return (
         <div className='comments_container'>
-            {!isEmpty(comments[0]) && 
-                <span>{comments.length}</span>
-            }
-            <ul>
-                {!isEmpty(comments[0]) &&
-                comments.map((comment) => 
-                {
-                    return <CommentCard comment={comment} key={comment.id} />;
-                })}
-            </ul>
+            {userData.id && (
+            <form action="" onSubmit={handleComment} className="comment_form">
+                <input
+                    type="text"
+                    name="text"
+                    onChange={(e) => setText(e.target.value)}
+                    value={text}
+                    placeholder="Laisser un commentaire"
+                />
+          <br />
+          <input type="submit" value="Envoyer" />
+        </form>
+      )}
         </div>
     );
 };

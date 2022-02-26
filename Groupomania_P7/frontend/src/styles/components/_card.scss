@@ -94,6 +94,7 @@
       border: 1px solid $color_back_def;
       padding: 10px;
       border-radius: 20px 20px 6px 20px;
+      width: 100% !important;
       min-width: 100%;
       min-height: 150px;
     }
@@ -153,6 +154,26 @@
     }
   }
 
+  .comments_container
+  {
+    min-width: 100%;
+    background-color: $color_back_def;
+    border-radius: 20px;
+
+    .comment_form
+    {
+      padding: 20px;
+      input[type="text"] 
+      {
+        width: 100%;
+        //background: $color-4;
+        border-radius: 20px 20px 6px 20px;
+        padding: 20px;
+        font-size: 1.2rem;
+
+      }
+    }
+  }
   
 }
 

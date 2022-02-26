@@ -3,6 +3,9 @@ const PostModel            = require('../models/post_model');
 const UserModel            = require('../models/user_model');
 const CommentValidation    = require('../validations/post_validation');
 
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+
 // ===================================================
 // createComment
 // ===================================================
@@ -75,7 +78,13 @@ module.exports.createComment = (req, res) =>
         });
 
     // Get All Comments & set
-    CommentModel.findAll()
+    CommentModel.findAll(
+    {
+        where: 
+        {
+            postId: { [Op.like]: postId }
+        }
+    })
     .then((comments) =>
     {
         console.log("Post setComment");

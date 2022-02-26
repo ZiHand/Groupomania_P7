@@ -169,9 +169,9 @@ const Card = ({post}) =>
                         title="Voir les commentaires"
                         />
                     </div>
-                    <span>{!isEmpty(postData[0]) && postData[0].comments.length}</span>
+                    <span>{post.comments.length}</span>
                 </div>
-                {showComments && <Comments post={post} key={post.id} />}
+                {showComments && <Comments post={post} />}
             </div>
             </>
         );
