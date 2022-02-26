@@ -113,7 +113,20 @@ module.exports.getPosts = (req, res) =>
 {
     PostModel.findAll(
     {
-        include: [UserModel]
+        order: [['createdAt', 'DESC']],
+        include: 
+        [
+            {
+                model: UserModel,
+                as: "user",
+                attributes: ["id", "pseudo", "avatar_url"],
+            },
+            {
+                model: CommentModel,
+                as: "comments",
+                attributes: ["id", "message", "createdAt", "updatedAt"],
+              },
+        ],
     })
     .then( posts =>
     {
@@ -131,7 +144,21 @@ module.exports.getPost = (req, res) =>
 
     PostModel.findByPk(id, 
     {
-        include: [UserModel]
+        //order: [['createdAt', 'DESC']],
+        
+        include: 
+        [
+            {
+                model: UserModel,
+                as: "user",
+                attributes: ["id", "pseudo"],
+            },
+            {
+                model: CommentModel,
+                as: "comments",
+                attributes: ["id", "message", "createdAt", "updatedAt"],
+              },
+        ],
     })
     .then(post =>
     {
@@ -237,3 +264,29 @@ module.exports.addComment = (req, res) =>
     })
     .catch(error => res.status(500).json(error))
 }
+
+// ===================================================
+// getPostCommentCount
+// ===================================================
+/*module.exports.getPostCommentCount = (req, res) => 
+{
+    PostModel.findAndCountAll(
+        {
+            include: 
+            [
+               
+                {
+                    model: UserModel,
+                    as: "user",
+                    attributes: ["id", "pseudo", "avatar_url"],
+                },
+            ],
+        })
+        .then( posts =>
+        {
+            res.status(200).json(posts);
+        })
+        .catch(error => res.status(500).json(error))
+}*/
+
+// ===================================================

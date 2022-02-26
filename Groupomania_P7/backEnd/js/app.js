@@ -58,11 +58,13 @@ app.use('/api/comment', commentRoutes);
 // ===================================================
 //                 DB Connection
 // ===================================================
-// https://www.youtube.com/watch?v=VsrQUXSe56k
 UserModel.hasMany(PostModel, { as: "posts" });
-UserModel.hasMany(CommentModel, { as: "comments" });
-PostModel.belongsTo(UserModel);
+//UserModel.hasMany(CommentModel, { as: "comments" });
 PostModel.hasMany(CommentModel, { as: "comments" });
+
+PostModel.belongsTo(UserModel);
+
+
 CommentModel.belongsTo(PostModel);
 CommentModel.belongsTo(UserModel);
 

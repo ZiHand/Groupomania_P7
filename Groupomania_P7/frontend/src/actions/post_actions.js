@@ -7,7 +7,6 @@ export const GET_POSTS           = "GET_POSTS";
 // ================================
 export const getPosts = (num) => 
 {
-  console.log("post count : " + num);
   // dispatch will send to reducers
   return (dispatch) => 
   {

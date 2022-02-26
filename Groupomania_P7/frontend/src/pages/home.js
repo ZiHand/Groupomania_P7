@@ -49,6 +49,9 @@ const Home = () =>
         );
     }
 
+    // ================================
+    // Main Render
+    // ================================
     return (
         <div className='default_page home_page'>
             {uidCtx.uid ? renderLogged() : renderUnLogged()}

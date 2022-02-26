@@ -14,7 +14,7 @@ module.exports.createComment = (req, res) =>
 
     if (error) return res.status(401).json(error.details[0].message);
 
-    // Check empty post
+    // Check empty comment
     if (body.message.length == 0)
     {
         res.status(200).json({ message :"No empty comment allowed" });
@@ -56,27 +56,75 @@ module.exports.createComment = (req, res) =>
     CommentModel.create({...body})
         .then((comment) => 
         {
+            //console.log("createPost setComment");
+            //Post.setComments(comment);
             //console.log("User : " + JSON.stringify(User));
             comment.setUser(User);
             //console.log("Comment : " + JSON.stringify(comment));
             comment.setPost(Post);
+
+            //console.log("Comment : " + JSON.stringify(comment));
+            
             res.status(201).json({ message: `Comment added : ${comment.id}`});
         })
         .catch(error =>
         {
+            console.log(error);
             //const errors = signUpErrors(error);
             res.status(200).json({ error });
         });
+
+    // Get All Comments & set
+    CommentModel.findAll()
+    .then((comments) =>
+    {
+        console.log("Post setComment");
+        Post.setComments(comments);
+    })
+    .catch(error =>
+    {
+        console.log(error);
+        res.status(200).json({ error });
+    });
+    
 }
 
 // ===================================================
-// getPosts
+// getAllComments
 // ===================================================
-module.exports.getComments = (req, res) => 
+module.exports.getAllComments = (req, res) => 
 {
     CommentModel.findAll(
     {
         include: [UserModel, PostModel]
+    })
+    .then( comments =>
+    {
+        res.status(200).json(comments);
+    })
+    .catch(error => res.status(500).json(error))
+}
+
+// ===================================================
+// getCommentsFrom
+// ===================================================
+module.exports.getCommentsFrom = (req, res) => 
+{
+    const postId  = req.params.id;
+    console.log("getCommentsFrom: " + JSON.stringify(postId));
+
+    CommentModel.findAll(
+    {
+        where: {postId: postId},
+        include: 
+        [
+            {
+                model: UserModel, attributes : {exclude : ["createdAt", "updatedAt", "email", "password", "avatar_url"]}
+            }, 
+            {
+                model: PostModel, attributes : {exclude : ["createdAt", "updatedAt", "message", "picture", "video"]}
+            }
+        ]
     })
     .then( comments =>
     {
@@ -94,7 +142,9 @@ module.exports.getComment = (req, res) =>
 
     CommentModel.findByPk(id,
     {
-        include: [
+        order: [['createdAt']],
+        include: 
+        [
             {
               model: PostModel,
               as: "post",
@@ -104,10 +154,8 @@ module.exports.getComment = (req, res) =>
                 model: UserModel,
                 as: "user",
                 attributes: ["id", "pseudo", "avatar_url"],
-              },
-          ],
-
-          //include: [UserModel, PostModel]
+            },
+        ],
     })
     .then(comment =>
     {
