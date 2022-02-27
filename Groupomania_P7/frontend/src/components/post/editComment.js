@@ -15,11 +15,15 @@ const EditComment = ({ comment, postId }) =>
   {
     e.preventDefault();
 
+    console.log("handleEdit");
+    console.log(text);
+
     if (text) 
     {
+      
       dispatch(editComment(comment.id, text))
       .then(() => dispatch(getPosts()))
-      setText("");
+      //setText("");
       setEdit(false);
       
     }

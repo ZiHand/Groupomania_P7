@@ -113,7 +113,8 @@ module.exports.getPosts = (req, res) =>
 {
     PostModel.findAll(
     {
-        order: [['createdAt', 'DESC']],
+        order: [['createdAt', 'DESC'], [{ model: CommentModel, as: 'comments' }, 'createdAt']],
+        
         include: 
         [
             {
