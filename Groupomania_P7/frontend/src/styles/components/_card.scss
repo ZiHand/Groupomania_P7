@@ -190,23 +190,24 @@
     {
       display: flex;
       flex-direction: column;
-      //color: black;
       background-color: $color_back_dark;
       border-radius: 20px;
-      //border: 2px solid $color_back_def;
       margin-top: 2px;
       margin-left: 2px;
       margin-right: 2px;
 
       .comment_header
       {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+
         img
         {
           height: 30px;
           width: 30px;
           object-fit: contain;
           border-radius: 50%;
-  
         }
   
         @media screen and(max-width: 590px) 
@@ -219,14 +220,14 @@
         {
           background-color: white;
           align-items: center;
-          align-content: center;
+          align-content:   center;
           width: 30px;
           height: 30px;
+          max-width: 30px;
           text-align: center;
           border-radius: 50%;
   
           margin-left: 10px;
-          margin-right: auto;
           margin-bottom: 5px;
           margin-top: 5px;
           overflow: hidden;
@@ -238,7 +239,6 @@
             width: 30px;
             object-fit: contain;
             border-radius: 50%;
-  
           }
   
           @media screen and(max-width: 590px) 
@@ -247,16 +247,56 @@
             margin-right: 0px;
           }
         }
+
+        .pseudo
+        {
+          justify-content: center;
+          margin-right: auto;
+          line-height: 30px;
+          text-align: center;
+          margin-top: 5px;
+          padding-left: 10px;
+        }
+
+        span
+        {
+          margin-right: 10px;
+          font-size: 12px;
+        }
       }
   
       .comment_content
       {
-        //padding-top: 5px;
         padding-bottom: 5px;
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+
+        .edit_comment
+        {
+        
+          img
+          {
+            width: 30px;
+            height: 30px;
+            min-width: 25px;
+            min-height: 25px;
+            filter: invert(73%) sepia(4%) saturate(200%) hue-rotate(314deg) brightness(121%) contrast(101%);
+          }
+
+          img:hover
+          {
+            filter: invert(73%) sepia(4%) saturate(800%) hue-rotate(314deg) brightness(121%) contrast(101%);
+          }
+
+          span
+          {
+            display: inline-flex;
+            align-items: center;
+          }
+        }
       }
     }
   }
+
 }
 

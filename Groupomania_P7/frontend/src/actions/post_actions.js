@@ -111,3 +111,44 @@ export const addComment = (postId, commenterId, message) =>
         .catch((err) => console.log(err));
   };
 };
+
+// ================================
+// editComment
+// ================================
+export const editComment = (commentId, message) => 
+{
+  return async (dispatch) => 
+  {
+    await axios(
+      {
+        method: "put",
+        url: `${process.env.REACT_APP_API_URL}api/comment/${commentId}`,
+        data: { message },
+      })
+        .then((res) => 
+        {
+          dispatch({ type: UPDATE_POST, payload: { message, commentId } });
+        })
+        .catch((err) => console.log(err));
+  };
+};
+
+// ================================
+// deleteComment
+// ================================
+export const deleteComment = (commentId) => 
+{
+  return async (dispatch) => 
+  {
+    await axios(
+      {
+        method: "delete",
+        url: `${process.env.REACT_APP_API_URL}api/comment/${commentId}`,
+      })
+        .then((res) => 
+        {
+          dispatch({ type: DELETE_COMMENT, payload: { commentId } });
+        })
+        .catch((err) => console.log(err));
+  };
+};

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { isEmpty } from './utils';
+import { isEmpty, dateParser } from "./utils";
 import { addComment } from '../actions/post_actions';
 import { getPosts } from './../actions/post_actions';
+import EditComment from './post/editComment';
 
 const Comments = ({post}) => 
 {    
@@ -60,22 +61,24 @@ const Comments = ({post}) =>
                       alt="commenter pic"
                     />
                   </div>
+                  <div className="pseudo">
+                    <h4>{!isEmpty(usersData[0]) &&
+                        usersData
+                          .map((user) => {
+                            if (user.id === comment.userId) 
+                            {
+                              return user.pseudo;
+                            }
+                            else return null;
+                          })
+                          .join("")}
+                    </h4>
+                  </div>
+                  <span>{dateParser(comment.createdAt)}</span>
                 </div>
                 <div className="comment_content">
-                  <div className="comment_header">
-                    <div className="pseudo">
-                      <h3>{comment.commenterPseudo}</h3>
-                      {/*comment.commenterId !== userData._id && (
-                        <FollowHandler
-                          idToFollow={comment.commenterId}
-                          type={"card"}
-                        />
-                      )*/}
-                    </div>
-                    <span>{/*timestampParser(comment.timestamp)*/}</span>
-                  </div>
                   <p>{comment.message}</p>
-                    {/* <EditDeleteComment comment={comment} postId={post._id} /> */}
+                  {<EditComment comment={comment} postId={post.id} /> }
                 </div>
               </div>
             );
