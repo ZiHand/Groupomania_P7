@@ -3,14 +3,23 @@ const UserModel         = require('../models/user_model');
 const CommentModel      = require('../models/comment_model');
 const PostValidation    = require('../validations/post_validation');
 
+const fs                = require("fs");
+const { promisify }     = require("util");
+const pipeline          = promisify(require("stream").pipeline);
+
 // ===================================================
 // createPost
 // ===================================================
 module.exports.createPost = (req, res) => 
 {
     const {id}      = req.params;
-    const {body}    = req;
-    const {error}   = PostValidation(body);
+    const {message, picture, video}    = req.body;
+
+    console.log("message : " + message);
+    console.log("picture : " + picture);
+    console.log("video : " + video);
+    console.log("file : " + req.file);
+
     let User;
 
     // Find corresponding user:
@@ -27,26 +36,25 @@ module.exports.createPost = (req, res) =>
     .catch(error => res.status(500).json(error))
 
 
-    if (error) return res.status(401).json(error.details[0].message);
-
     // Check empty post
-    if (body.message.length == 0 && body.picture.length == 0 && body.video.length == 0)
+    if (message.length == 0 && picture.length == 0 && video.length == 0)
     {
         res.status(200).json({ message :"No empty post allowed" });
         return;
     }
 
     // Check if owner id is valid
-    let filaName;
+    let fileName;
 
     try 
     {
-        if (req.file)
+        if (file)
         {
             // Check file format & size
-            if (req.file.detectedMimeType  != "image/jpg" &&
-                req.file.detectedMimeType  != "image/png" &&
-                req.file.detectedMimeType  != "image/jpeg")
+            if (file.detectedMimeType  != "image/jpg" &&
+                file.detectedMimeType  != "image/png" &&
+                file.detectedMimeType  != "image/jpeg" &&
+                file.detectedMimeType  != "image/gif")
             {
                 throw Error("invalid file");
             }
@@ -56,20 +64,18 @@ module.exports.createPost = (req, res) =>
     }
     catch (err)
     {
-        const errors = uploadErrors(err);
-        return res.status(201).json({ errors });
+        console.log(err);
+        return res.status(201).json({ err });
     }
 
-    let argsArray = {...body};
-    //argsArray.push();
-    //console.log(argsArray);
-
-    PostModel.create({...body})
+    PostModel.create(message, picture, video)
         .then((post) => 
         {
-            /*if (post.picture)
+            
+            if (post.picture && req.file)
             {
-                filaName = post.id + Date.now() + ".jpg";
+                fileName = post.id + Date.now() + ".jpg";
+                console.log("************ File : " + fileName);
                 const filedir = path.normalize(`${__dirname}/../../../frontend/public/uploads/post/${fileName}`);
 
                 try 
@@ -90,7 +96,7 @@ module.exports.createPost = (req, res) =>
                     console.log('pipeline failed with error:', error);
                     return res.status(500).send({ message: "Creating file error" });
                 }
-            }*/
+            }
             
 
             console.log("Adding user");

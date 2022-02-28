@@ -33,20 +33,31 @@ export const getPosts = (num) =>
 // ================================
 // addPost
 // ================================
-export const addPost = (userId) => 
+export const addPost = (userId, formData) => 
 {
+  console.log("addPost");
+  let data = {};
+  for (var key of formData.entries()) 
+  {
+    data[key[0]] = key[1];
+  }
+
+  
+
+  //console.log(data.message);
+
+  // remove video from message
+  //data.message = data.message.replace(formData.video, "");
+
   return async (dispatch) => 
   {
-    await axios
-        .post(`${process.env.REACT_APP_API_URL}api/post/${userId}`)
-        .then((res) => 
-        {
-          dispatch({ type: ADD_POST, payload: res.data });
-        })
-        .catch ((err) =>
-        {
-          return console.log(err);
-        });
+      console.log(data);
+      return axios
+      .post( `${process.env.REACT_APP_API_URL}api/post/${userId}`, data)
+      .then(() =>
+      {
+        dispatch(getPosts());
+      })
   };
 };
 

@@ -79,6 +79,8 @@ const Comments = ({post}) =>
                 <div className="comment_content">
                   <p>{comment.message}</p>
                   {<EditComment comment={comment} postId={post.id} /> }
+                  <div className='comment_line'>
+                  </div>
                 </div>
               </div>
             );

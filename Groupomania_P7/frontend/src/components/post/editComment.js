@@ -11,21 +11,21 @@ const EditComment = ({ comment, postId }) =>
   const uid                     = useContext(UidContext);
   const dispatch                = useDispatch();
 
+  const checkKeyDown = (e) => 
+  {
+    if (e.code === 'Enter') e.preventDefault();
+  };
+
   const handleEdit = (e) => 
   {
     e.preventDefault();
-
-    console.log("handleEdit");
-    console.log(text);
-
+    
     if (text) 
     {
       
       dispatch(editComment(comment.id, text))
       .then(() => dispatch(getPosts()))
-      //setText("");
       setEdit(false);
-      
     }
   };
 
@@ -56,20 +56,19 @@ const EditComment = ({ comment, postId }) =>
         </span>
       )}
       {isAuthor && edit && (
-        <form action="" onSubmit={handleEdit} className="edit_comment_form">
-          <label htmlFor="text" onClick={() => setEdit(!edit)}>
-            Editer
+        <form action="" onSubmit={handleEdit} className="edit_comment_form" onKeyDown={(e) => checkKeyDown(e)}>
+          <label htmlFor="text" onClick={() => setEdit(!edit)}>  
           </label>
-          <br />
+          
           <input
             type="text"
             name="text"
             onChange={(e) => setText(e.target.value)}
             defaultValue={comment.message}
           />
-          <br />
+          
           <div className="btn">
-            <input type="submit" value="Valider modification" />
+            <input type="submit" value="Valider" />
             <span
               onClick={() => 
               {

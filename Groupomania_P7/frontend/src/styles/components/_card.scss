@@ -273,6 +273,11 @@
 
         .edit_comment
         {
+          display: flex;
+          flex-direction: column;
+          //background-color: aqua;
+          min-width: 100%;
+          //align-items: flex-end; 
         
           img
           {
@@ -293,6 +298,14 @@
             display: inline-flex;
             align-items: center;
           }
+        }
+
+        .comment_line
+        {
+          max-width: 50%;
+          margin-left: 25%;
+
+          border-top: 1px dashed  $color_back_def;
         }
       }
     }

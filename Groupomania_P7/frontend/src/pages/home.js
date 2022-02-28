@@ -27,6 +27,7 @@ const Home = () =>
         return (
             <div className='home'>
                 <div className='main'>
+                    <WhatsNew />
                     <Thread />
                 </div>
             </div>
