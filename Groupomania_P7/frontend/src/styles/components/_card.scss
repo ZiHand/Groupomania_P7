@@ -1,6 +1,5 @@
 .card_container 
 {
-  //display: grid;
   grid-template-columns: 66px 1fr;
   border: 2px solid $color_back_def;
   background-color: $color_back_darklight;
@@ -157,6 +156,7 @@
       height: 35px;
       min-width: 25px;
       min-height: 25px;
+      margin-right: 10px;
       filter: invert(73%) sepia(4%) saturate(200%) hue-rotate(314deg) brightness(121%) contrast(101%);
     }
 
@@ -308,7 +308,6 @@
           align-items: flex-end;
           margin-bottom: 10px;
 
-        
           img
           {
             width: 30px;

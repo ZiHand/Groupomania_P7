@@ -15,7 +15,7 @@ const WhatsNew = () =>
     const [file, setFile]                   = useState();
     const dispatch                          = useDispatch();
     const userData                          = useSelector((state) => state.userReducer);
-    const error                             = useSelector((state) => state.errorReducer.postError);
+    //const error                             = useSelector((state) => state.errorReducer.postError);
 
     // ================================
     // Logic
@@ -45,8 +45,6 @@ const WhatsNew = () =>
     // ================================
     const handlePicture = (e) => 
     {
-        console.log("handlePicture");
-        console.log(e.target.files[0]);
         setPostPicture(e.target.files[0].name);
         setFile(e.target.files[0]);
         setVideo('');
