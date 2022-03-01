@@ -36,24 +36,12 @@ export const getPosts = (num) =>
 export const addPost = (userId, formData) => 
 {
   console.log("addPost");
-  let data = {};
-  for (var key of formData.entries()) 
-  {
-    data[key[0]] = key[1];
-  }
-
+  console.log(formData);
   
-
-  //console.log(data.message);
-
-  // remove video from message
-  //data.message = data.message.replace(formData.video, "");
-
   return async (dispatch) => 
   {
-      console.log(data);
       return axios
-      .post( `${process.env.REACT_APP_API_URL}api/post/${userId}`, data)
+      .post( `${process.env.REACT_APP_API_URL}api/post/${userId}`, formData)
       .then(() =>
       {
         dispatch(getPosts());

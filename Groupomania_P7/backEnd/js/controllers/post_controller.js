@@ -6,28 +6,30 @@ const PostValidation    = require('../validations/post_validation');
 const fs                = require("fs");
 const { promisify }     = require("util");
 const pipeline          = promisify(require("stream").pipeline);
+const path              = require('path');
 
 // ===================================================
 // createPost
 // ===================================================
 module.exports.createPost = (req, res) => 
 {
-    const {id}      = req.params;
-    const {message, picture, video}    = req.body;
-
-    console.log("message : " + message);
-    console.log("picture : " + picture);
-    console.log("video : " + video);
-    console.log("file : " + req.file);
-
+    const {message, picture, video} = req.body;
+    const {id}                      = req.params;
     let User;
 
+    if (!message)
+    {
+        console.log("NO MESSAGE");
+        return res.status(500).send({ message: "Empty post" });
+    }
+        
     // Find corresponding user:
     UserModel.findByPk(id, {attributes : {exclude : ["createdAt", "updatedAt", "password"]}})
     .then(user =>
     {
         if (!user)
         {
+            console.log("!user");
             return res.status(400).json({message : `User not found : ${id}`})
         }
 
@@ -35,48 +37,54 @@ module.exports.createPost = (req, res) =>
     })
     .catch(error => res.status(500).json(error))
 
-
-    // Check empty post
-    if (message.length == 0 && picture.length == 0 && video.length == 0)
+    if (User === null)
     {
-        res.status(200).json({ message :"No empty post allowed" });
-        return;
+        console.log("!User");
+        return res.status(400).json({message : `User not found : ${id}`})
     }
+        
 
-    // Check if owner id is valid
+    // Manage file
     let fileName;
 
     try 
     {
-        if (file)
+        if (req.file !== null)
         {
+            console.log("Check file format");
             // Check file format & size
-            if (file.detectedMimeType  != "image/jpg" &&
-                file.detectedMimeType  != "image/png" &&
-                file.detectedMimeType  != "image/jpeg" &&
-                file.detectedMimeType  != "image/gif")
+            if (req.file.detectedMimeType  != "image/jpg" &&
+                req.file.detectedMimeType  != "image/png" &&
+                req.file.detectedMimeType  != "image/jpeg" &&
+                req.file.detectedMimeType  != "image/gif")
             {
                 throw Error("invalid file");
             }
         
-            if (req.file.size > 500000) throw Error("max size");
+            if (req.file.size > 5e+6) throw Error("max size");
         }
     }
     catch (err)
     {
         console.log(err);
-        return res.status(201).json({ err });
+        return res.status(500).json({ err });
     }
 
-    PostModel.create(message, picture, video)
+    PostModel.create(
+        { 
+            message: message,
+            picture: picture,
+            video: video
+        })
         .then((post) => 
         {
-            
-            if (post.picture && req.file)
+            if (picture && req.file)
             {
-                fileName = post.id + Date.now() + ".jpg";
-                console.log("************ File : " + fileName);
+                fileName = post.id + ".jpg";
                 const filedir = path.normalize(`${__dirname}/../../../frontend/public/uploads/post/${fileName}`);
+
+                post.picture = fileName;
+                post.save();
 
                 try 
                 {
@@ -98,9 +106,6 @@ module.exports.createPost = (req, res) =>
                 }
             }
             
-
-            console.log("Adding user");
-
             post.setUser(User);
 
             res.status(201).json({ message: `Post added : ${post.id}`});

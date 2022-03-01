@@ -24,13 +24,12 @@ const WhatsNew = () =>
     {
         if (message || postPicture || video) 
         {
-            //message.replace(video, "");
             const data = new FormData();
             data.append('message', message);
             data.append('picture', postPicture);
-            data.append('video', video);
-
+        
             if (file) data.append("file", file);
+            data.append('video', video);
             
             dispatch(addPost(userData.id, data));
             
@@ -44,10 +43,12 @@ const WhatsNew = () =>
     };
 
     // ================================
-    const handlePicture = (file) => 
+    const handlePicture = (e) => 
     {
-        setPostPicture(file.name);
-        setFile(file);
+        console.log("handlePicture");
+        console.log(e.target.files[0]);
+        setPostPicture(e.target.files[0].name);
+        setFile(e.target.files[0]);
         setVideo('');
     }; 
     
@@ -89,10 +90,6 @@ const WhatsNew = () =>
     // ================================
     return (
         <div className='newpost_container'>
-            {/* <div className='new_post_left_container'>
-                <img src={userData.avatar_url ? avatar_url : "./img/default_avatar2.png"} alt="Avatar utilisateur" title="Avatar utilisateur" />  
-            </div> */}
-
             <div className='new_post_main_container'>
                 <textarea
                     name="message"
@@ -111,7 +108,7 @@ const WhatsNew = () =>
                             id="file-upload"
                             name="file"
                             accept=".jpg, .jpeg, .png, .gif"
-                            onChange={(e) => handlePicture(e.target.files[0])}
+                            onChange={(e) => handlePicture(e)}
                             />
                         </>
                         )}

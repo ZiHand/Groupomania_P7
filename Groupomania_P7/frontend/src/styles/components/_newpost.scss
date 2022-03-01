@@ -1,0 +1,43 @@
+.newpost_container 
+{
+    display: block;
+    background-color: $color_back_def;
+    padding: 10px 10px 10px 10px;
+    border-radius: 15px;
+    border: 2px solid $color_back_darklight;
+    color: black;
+    width: 80%;
+    margin-left: 10%;
+
+    .new_post_main_container
+    {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 20px 20px 6px 20px;
+      
+
+      textarea
+      {
+        min-width: 100%;
+        padding: 10px 10px;
+      }
+
+      .newpost_footer
+      {
+        display:inline-flex;
+        flex-direction: row;
+        align-items:center;
+        justify-content: flex-end;
+        min-width: 100%;
+        margin-top: 10px;
+      }
+
+      
+      @media screen and(max-width: 590px) 
+      {
+        width: 100%;
+      }
+    }
+}
