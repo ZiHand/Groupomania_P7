@@ -24,7 +24,8 @@ $color_back_darklight: #7a7979;
 $color_back_def: #ffd7d7;
 $checkbox_control_color: rebeccapurple;
 
-* {
+* 
+{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -33,16 +34,21 @@ $checkbox_control_color: rebeccapurple;
   border: none;
   text-decoration: none;
 
-  &::selection {
+  &::selection 
+  {
     background: $color_white;
   }
 }
+
 a,
-a:visited {
+a:visited 
+{
   color: $color_black;
 }
+
 input,
-textarea {
+textarea 
+{
   resize: none;
   border-radius: 15px;
   width: 270px;
@@ -50,45 +56,47 @@ textarea {
   font-family: $font-1;
   background: $color_white;
 }
-textarea {
-  &:focus {
+
+textarea 
+{
+  &:focus 
+  {
     box-shadow: 0 0 4px rgba(0, 22, 44, 0.1);
   }
 }
 
-::-moz-selection { /* Code for Firefox */
+::-moz-selection 
+{ 
   color: black;
   background: $color_back_def;
 }
 
-::selection {
+::selection 
+{
   color: black;
   background: $color_back_def;
 }
 
 button,
-input[type="submit"] {
+input[type="submit"] 
+{
   background: $color_white;
   color: $color_black;
   font-family: $font-3;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.3s;
   margin: 0;
   padding: 10px 20px;
   cursor: pointer;
   font-size: 1.1rem;
   border-radius: 15px;
+  width: auto;
 
   &:hover {
-    background: sandybrown;
-    color: $color_red;
+    background: $color_back_dark;
+    color: $color_back_def;
   }
 }
-/*input[type="checkbox"] {
-  box-shadow: none;
-  width: 20px;
-  margin: 10px 10px;
-}*/
 
 input[type="checkbox"] 
 {
@@ -100,7 +108,6 @@ input[type="checkbox"]
   min-height: 25px;
   width: 25px;
   margin: 10px 10px;
-  //border: 2px solid whitesmoke;
   border-radius: 50%;
   display: grid;
   place-content: center;
@@ -129,42 +136,54 @@ input[type="checkbox"]:checked::before
 
 
 input[type="text"],
-input[type="password"] {
+input[type="password"] 
+{
   box-shadow: none;
   width: 100%;
   margin: 10px 0px;
   padding-left: 10px;
 }
-input[type="file"] {
+
+input[type="file"] 
+{
   box-shadow: none;
   width: 100%;
   margin: 10px 0px;
   padding-left: 10px;
   background: none;
 }
-i {
+i 
+{
   transition: 0.15s;
 
-  &:hover {
+  &:hover 
+  {
     transform: scale(1.1);
   }
 }
-body {
+
+body 
+{
   font-family: $font-2;
   line-height: 1.4rem;
   background: rgb(51, 50, 50);
   color: $color_white;
 }
-.error {
+
+.error 
+{
   color: red;
   font-weight: bold;
 }
-.success {
+
+.success 
+{
   color: green;
   font-weight: bold;
 }
 
-.default_page {
+.default_page 
+{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -175,14 +194,17 @@ body {
   margin: 75px auto 50px;
   position: relative;
 
-  @media screen and(max-width: 990px) {
+  @media screen and(max-width: 990px) 
+  {
     margin: 75px 20px 50px;
   }
 
-  @media screen and(max-width: 590px) {
+  @media screen and(max-width: 590px) 
+  {
     margin: 75px 8px 50px;
 
-    .log_container {
+    .log_container 
+    {
       flex-direction: row;
     }
   }

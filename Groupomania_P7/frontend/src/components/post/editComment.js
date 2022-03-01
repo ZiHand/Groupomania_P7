@@ -52,13 +52,12 @@ const EditComment = ({ comment, postId }) =>
     <div className="edit_comment">
       {isAuthor && edit === false && (
         <span onClick={() => setEdit(!edit)}>
-          <img src="./img/icons/edit.svg" alt="edit_comment" />
+          <img src="./img/icons/edit.svg" alt="edit_comment" title="Editer le commentaire"/>
         </span>
       )}
       {isAuthor && edit && (
         <form action="" onSubmit={handleEdit} className="edit_comment_form" onKeyDown={(e) => checkKeyDown(e)}>
-          <label htmlFor="text" onClick={() => setEdit(!edit)}>  
-          </label>
+          <label htmlFor="text" onClick={() => setEdit(!edit)}></label>
           
           <input
             type="text"
@@ -68,18 +67,18 @@ const EditComment = ({ comment, postId }) =>
           />
           
           <div className="btn">
-            <input type="submit" value="Valider" />
-            <span
-              onClick={() => 
+            <span onClick={() => 
+            {
+              if (window.confirm("Voulez-vous supprimer ce commentaire ?")) 
               {
-                if (window.confirm("Voulez-vous supprimer ce commentaire ?")) 
-                {
-                  handleDelete();
-                }
-              }}
+                handleDelete();
+              }
+            }}
             >
-              <img src="./img/icons/trash.svg" alt="delete" />
+            <img src="./img/icons/trash.svg" alt="delete" />
             </span>
+            <input type="submit" value="Valider" />
+            
           </div>
         </form>
       )}

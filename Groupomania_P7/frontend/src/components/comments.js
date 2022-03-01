@@ -94,7 +94,6 @@ const Comments = ({post}) =>
                   value={text}
                   placeholder="Laisser un commentaire"
               />
-          <br />
           <input type="submit" value="Envoyer" />
         </form>
       )}

@@ -40,12 +40,26 @@ const Card = ({post}) =>
     }, [usersData])
 
     // ================================
-    // cardleftRender
+    // cardRender
     // ================================
-    const cardLeftRender = () => 
+    const cardRender = () => 
     {
         return (
-            <div className="card_left">
+            <>
+                {headerRender()}
+                {contentRender()}
+                {footerRender()}
+            </>
+        );
+    }
+
+    // ================================
+    // headerRender
+    // ================================
+    const headerRender = () => 
+    {
+        return (
+            <div className="card_header">
                 <div className="card_img_container">
                     <img src={
                         !isEmpty(usersData[0]) && 
@@ -58,31 +72,6 @@ const Card = ({post}) =>
                         } alt = "poster-pic" 
                     />
                 </div>
-            </div>
-        );
-    }
-
-    // ================================
-    // cardRightRender
-    // ================================
-    const cardRightRender = () => 
-    {
-        return (
-            <div className="card_right">
-                {headerRender()}
-                {contentRender()}
-                {footerRender()}
-            </div>
-        );
-    }
-
-    // ================================
-    // headerRender
-    // ================================
-    const headerRender = () => 
-    {
-        return (
-            <div className="card_header">
                 <div className="pseudo">
                     <h3>
                     {!isEmpty(usersData[0]) &&
@@ -106,35 +95,38 @@ const Card = ({post}) =>
     {
         return (
             <>
-            {isUpdated === false && <p>{post.message}</p>}
-            {isUpdated && (
-              <div className="update_post">
-                <textarea
-                  defaultValue={post.message}
-                  onChange={(e) => setTextUpdate(e.target.value)}
-                />
-                <div className="button_container">
-                  <button className="btn" onClick={editPost}>
-                    Valider modification
-                  </button>
+            <div className="card_content">
+                {isUpdated === false && <p>{post.message}</p>}
+                {isUpdated && (
+                <div className="update_post">
+                    <textarea
+                    defaultValue={post.message}
+                    onChange={(e) => setTextUpdate(e.target.value)}
+                    />
+                    <div className="button_container">
+                    <button className="btn" onClick={editPost}>
+                        Valider
+                    </button>
+                    </div>
                 </div>
-              </div>
-            )}
-            <div className="post_content">
-                {post.picture && <img src={pict_url + post.picture} alt="card-pic" className="card_pic"/>}
-                {post.video && (
-                    <iframe
-                        width="500"
-                        height="300"
-                        src={validateYoutubeVideo(post.video)}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        title={post.id}
-                    >
-                    </iframe>
-                    )
-                }
+                )}
+                <div className="post_content">
+                    {post.picture && <img src={pict_url + post.picture} alt="card-pic" className="card_pic"/>}
+                    {post.video && (
+                        <iframe
+                            width="500"
+                            height="300"
+                            src={validateYoutubeVideo(post.video)}
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            title={post.id}
+                        >
+                        </iframe>
+                        )
+                    }
+                </div>
             </div>
+            
             </>
         );
     }
@@ -187,8 +179,7 @@ const Card = ({post}) =>
                     <i className="fas fa-spinner fa-spin"/>
                 ) : (
                     <>
-                        {cardLeftRender()}
-                        {cardRightRender()}
+                        {cardRender()}
                     </>
                 )
             }
