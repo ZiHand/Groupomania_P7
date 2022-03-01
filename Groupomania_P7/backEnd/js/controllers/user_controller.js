@@ -50,9 +50,6 @@ module.exports.updateUser = (req, res) =>
     if (!req.params.id)
         return res.status(400).send("ID unknown : " + req.params.id);
 
-    console.log(body.pseudo);
-    console.log(body.password);
-
 
     UserModel.findByPk(req.params.id, {attributes : {exclude : ["createdAt", "updatedAt", "password"]}})
     .then(user =>
@@ -79,8 +76,6 @@ module.exports.updateUser = (req, res) =>
             const salt = bcrypt.genSaltSync(10, 'a');
             user.password = bcrypt.hashSync(body.password, salt);
         }
-
-        console.log(JSON.stringify(user));
 
         return user;
     })

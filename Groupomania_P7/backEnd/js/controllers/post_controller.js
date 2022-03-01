@@ -228,9 +228,23 @@ module.exports.updatePost = (req, res) =>
 // ===================================================
 module.exports.deletePost = (req, res) => 
 {
-    const {id} = req.params;
+    // Delete comments
+    CommentModel.destroy({where : {postId : req.params.id}})
+    .then(comments => 
+    {
+        console.log("deleted " + comments + " comments");
+    })
+    .catch(error => res.status(500).json(error))
+    
 
-    PostModel.destroy({where : {id : id}})
+    // Delete post image if any
+    const fileName = req.params.id + ".jpg";
+    const filedir  = path.normalize(`${__dirname}/../../../frontend/public/uploads/post/${fileName}`);
+    
+    deletePostImage(filedir);
+
+
+    PostModel.destroy({where : {id : req.params.id}})
     .then(post =>
     {
         if (!post)
@@ -302,3 +316,21 @@ module.exports.addComment = (req, res) =>
 }*/
 
 // ===================================================
+// ===================================================
+// deletePostImage // put async
+// ===================================================
+async function deletePostImage(url)
+{
+    console.log("Deleting post picture : " + url);
+    //let file    = __dirname + "/../../images/" + url;
+    
+    try 
+    {
+        fs.unlinkSync(url);
+    } 
+    catch (error) 
+    {
+        console.log("Unable to delete : " + url);
+    }
+    
+}

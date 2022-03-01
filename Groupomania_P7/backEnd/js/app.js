@@ -60,12 +60,12 @@ app.use('/api/comment', commentRoutes);
 // ===================================================
 UserModel.hasMany(PostModel, { as: "posts" });
 //UserModel.hasMany(CommentModel, { as: "comments" });
-PostModel.hasMany(CommentModel, { as: "comments" });
+PostModel.hasMany(CommentModel, { as: "comments", onDelete: 'cascade'/*, foreignKey: { allowNull: false } */});
 
 PostModel.belongsTo(UserModel);
 
 
-CommentModel.belongsTo(PostModel);
+CommentModel.belongsTo(PostModel, { onDelete: 'cascade' });
 CommentModel.belongsTo(UserModel);
 
 db.sync()

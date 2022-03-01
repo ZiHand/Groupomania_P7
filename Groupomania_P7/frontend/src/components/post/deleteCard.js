@@ -14,7 +14,7 @@ const DeleteCard = (props) =>
         {
             if (window.confirm("Voulez-vous supprimer cet article ?")) 
             {
-            deleteQuote();
+                deleteQuote();
             }
         }}
     >

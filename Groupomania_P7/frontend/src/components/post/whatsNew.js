@@ -10,7 +10,7 @@ const WhatsNew = () =>
     // Hooks
     // ================================
     const [message, setMessage]             = useState("");
-    const [postPicture, setPostPicture]     = useState(null);
+    const [postPicture, setPostPicture]     = useState("");
     const [video, setVideo]                 = useState("");
     const [file, setFile]                   = useState();
     const dispatch                          = useDispatch();

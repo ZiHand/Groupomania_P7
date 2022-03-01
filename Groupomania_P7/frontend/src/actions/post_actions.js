@@ -37,6 +37,13 @@ export const addPost = (userId, formData) =>
 {
   console.log("addPost");
   console.log(formData);
+
+  let data = {};
+  for (var key of formData.entries()) 
+  {
+    console.log(key[1]);
+    data[key[0]] = key[1];
+  }
   
   return async (dispatch) => 
   {
