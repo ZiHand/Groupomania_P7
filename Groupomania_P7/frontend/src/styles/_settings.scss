@@ -100,6 +100,7 @@ input[type="submit"]
   &:hover {
     background: $color_back_dark;
     color: $color_back_def;
+    letter-spacing: 1px;
   }
 }
 

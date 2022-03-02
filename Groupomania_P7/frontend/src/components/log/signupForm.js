@@ -30,9 +30,9 @@ const SigninForm = () =>
         passworConfirmdError.innerHTML  = "";
         passwordError.innerHTML         = "";
 
-        if (password.length < 6)
+        if (password.length < 4)
         {
-            passwordError.innerHTML = "Les mots de passe doit faire 6 caracteres minimum";
+            passwordError.innerHTML = "Les mots de passe doit faire 4 caracteres minimum";
         }
         else if (password !== controlPassword)
         {

@@ -37,9 +37,9 @@ const UdpateProfile = () =>
         data.append("userId", userData.id);
         data.append("pseudo", pseudo);
 
-        if (pseudo.length < 5)
+        if (pseudo.length < 4)
         {
-            pseudoError.innerHTML = "Le pseudo doit faire 6 caracteres minimum";
+            pseudoError.innerHTML = "Le pseudo doit faire 4 caracteres minimum";
             return;
         }
         else
@@ -111,7 +111,7 @@ const UdpateProfile = () =>
             <p>{error.maxSize}</p>
             <p>{error.format}</p>
 
-            <br />
+          
 
             <label htmlFor="file" className="pict_label">Changer d'image</label>
             <input
@@ -133,7 +133,7 @@ const UdpateProfile = () =>
             />
 
             <div className="pseudo error form_item"></div>
-            <br/>
+            
 
             <label htmlFor="password" className="form_item">Changer de mot de passe</label>
             <input 
@@ -145,7 +145,7 @@ const UdpateProfile = () =>
               className="form_item"
             />
             <div className="password error form_item"></div>
-            <br/>
+            
   
             <label htmlFor="password_conf error" className="form_item">Confirmer le mot de passe</label>
             <input 
@@ -157,7 +157,7 @@ const UdpateProfile = () =>
                 className="form_item"
             />
             <div className="password_confirm error form_item"></div>
-            <br/>
+      
 
             <div className="modo_container form_item">
                 <input 
@@ -183,8 +183,11 @@ const UdpateProfile = () =>
             </div>
           
 
-            <br/>
+        
             <input type="submit" value="Envoyer" className="form_item"/>
+            <button>
+                ! Suprimer le compte !
+            </button>
         </form>
         </>
     );

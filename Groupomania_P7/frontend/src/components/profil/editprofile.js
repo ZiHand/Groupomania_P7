@@ -9,9 +9,8 @@ const Editprofile = () =>
 
     return (
         <div className='profil_container'>
-            <h1> Profile de {userData.pseudo}</h1>
+            <h2> Profile de {userData.pseudo}</h2>
             <div className='update_container'>
-                <br/>
                 <UdpateProfile />
             </div>           
         </div>

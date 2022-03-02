@@ -1,5 +1,7 @@
-.login_page {
-  .log_container {
+.login_page 
+{
+  .log_container 
+  {
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -13,25 +15,40 @@
     }
   }
 
-  .connection_form {
+  .connection_form 
+  {
     display: flex;
     flex-direction: column;
     align-content: center;
     align-items: center;
-    width: 100%;
+    
+    //width: 100%;
     //background-color: blueviolet;
   }
 
-  .form_container {
+  .form_container 
+  {
     display: flex;
     flex-direction: row;
     background-color: $color_back_def;
-    padding: 30px;
+    padding: 20px;
     border-radius: 15px;
     color: black;
+    min-width: 300px;
 
-    @media screen and(max-width: 590px) {
+    @media screen and(max-width: 590px) 
+    {
       flex-direction: column;
+    }
+
+    form
+    {
+      width: 100%;
+
+      input[type="submit"] 
+      {
+        width: 100%;
+      }
     }
   }
 }
