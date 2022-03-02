@@ -149,13 +149,14 @@ const UdpateProfile = () =>
 
           
 
-            <label htmlFor="file" className="pict_label">Changer d'image</label>
+            <label htmlFor="file" className="pict_label" title="Changer d'image">Changer d'image</label>
             <input
                 type="file"
                 id="file"
                 name="file"
                 accept=".jpg, .jpeg, .png, .gif"
                 onChange={(e) => {setFile(e.target.files[0]);}}
+                title="Changer d'image"
             />
             
             <label htmlFor="pseudo" className="form_item">Changer de pseudo</label>
