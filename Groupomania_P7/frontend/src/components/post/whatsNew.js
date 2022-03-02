@@ -101,7 +101,7 @@ const WhatsNew = () =>
                         {isEmpty(video) && (
                         <>
                             <div className='img_container'>
-                                <img src="./img/icons/picture.svg" alt="ajouter une image" title='Ajouter une image' />
+                                <img src="./img/icons/picture.svg" alt="ajouter" title='Ajouter une image' />
                             </div>
                             <label htmlFor="file" className="pict_label" title='Ajouter une image'>Ajouter une image</label>
                             <input

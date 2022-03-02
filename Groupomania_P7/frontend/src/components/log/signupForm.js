@@ -19,7 +19,6 @@ const SigninForm = () =>
     // ================================
     const handleRegister = async (event) =>
     {
-        // Put it at the end !!
         event.preventDefault();
 
         const pseudoError           = document.querySelector(".pseudo.error");
@@ -74,8 +73,8 @@ const SigninForm = () =>
         <> 
         {formSubmit ? (
             <>
-                <LoginForm />
                 <h4 className='sucess'>Enregistrement réussi, veuillez vous connecter</h4>
+                <LoginForm />
             </>
         ) : (
             <form action='' onSubmit={handleRegister} id="sign_up_form">

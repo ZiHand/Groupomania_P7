@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteUser } from "../../actions/user_actions";
 import { uploadPicture } from "../../actions/user_actions";
 import { updateUser } from './../../actions/user_actions';
+import Axios from 'axios';
+import cookie from 'js-cookie';
 
 const UdpateProfile = () => 
 {
@@ -20,7 +23,7 @@ const UdpateProfile = () =>
     let avatar_url = "./uploads/profil/" + userData.avatar_url;
 
     // ================================
-    // Logic
+    // handleUpdate
     // ================================
     const handleUpdate = (e) => 
     {
@@ -37,12 +40,12 @@ const UdpateProfile = () =>
         data.append("userId", userData.id);
         data.append("pseudo", pseudo);
 
-        if (pseudo.length < 4)
+        if (pseudo && pseudo.length < 4)
         {
             pseudoError.innerHTML = "Le pseudo doit faire 4 caracteres minimum";
             return;
         }
-        else
+        else if (pseudo)
         {
             data.append("pseudo", pseudo);
         }
@@ -76,13 +79,9 @@ const UdpateProfile = () =>
         dispatch(updateUser(data, userData.id));
     }
 
-    const showHideModoPass = (e) =>
-    {
-        //e.preventDefault();
-
-        console.log(e);
-    }
-
+    // ================================
+    // showHideModoPassword
+    // ================================
     function showHideModoPassword () 
     {
         var checkbox = document.querySelector(".modo_checkbox");
@@ -95,9 +94,45 @@ const UdpateProfile = () =>
         {
             document.querySelector(".modo_pass_container").style.display = "none";
         }
-        
     }
 
+    // ================================
+    // removeCookie
+    // ================================
+    const removeCookie = (key) => 
+    {
+        if (window !== "undefined")
+        {
+            cookie.remove(key, {expire : 1});
+        }
+    };
+
+    // ================================
+    // logOut
+    // ================================
+    const logout = async () =>
+    {
+        await Axios(
+        {
+            method          : 'get',
+            url             : `${process.env.REACT_APP_API_URL}api/user/logout`,
+            withCredentials : true
+        })
+        .then(() => removeCookie('jwt'))
+        .catch((err) => console.log(err))
+
+        window.location = "/";
+    }
+
+    // ================================
+    // showHideModoPassword
+    // ================================
+    const userDelete = () => 
+    {
+        dispatch(deleteUser(userData.id));
+        logout();
+    }
+    
     // ================================
     // Generate
     // ================================
@@ -181,14 +216,18 @@ const UdpateProfile = () =>
                 />
             <div className="password error form_item"></div>
             </div>
-          
-
-        
             <input type="submit" value="Envoyer" className="form_item"/>
-            <button>
+            
+        </form>
+        <button onClick={() => 
+            {
+                if (window.confirm("Attention! Vous etes sur le point de supprimer votre compte. En etes vous sur ?")) 
+                {
+                    userDelete();
+                }
+            }}>
                 ! Suprimer le compte !
             </button>
-        </form>
         </>
     );
 };

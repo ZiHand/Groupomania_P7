@@ -1,10 +1,12 @@
 const UserModel         = require('../models/user_model');
+const PostModel         = require('../models/post_model');
+const CommentModel      = require('../models/comment_model');
 const bcrypt            = require("bcrypt");
 const { updateErrors }  = require('../utils/errors_utils');
 
 const db                = require("../../config/db");
-const User              = db.user;
-const Posts             = db.post;
+const fs                = require("fs");
+const path              = require('path');
 
 
 // ===================================================
@@ -45,6 +47,7 @@ module.exports.getUser = (req, res) =>
 // ===================================================
 module.exports.updateUser = (req, res) => 
 {
+    console.log("updateUser");
     const {body}    = req;
 
     if (!req.params.id)
@@ -102,6 +105,61 @@ module.exports.updateUser = (req, res) =>
 module.exports.deleteUser = (req, res) => 
 {
     const {id} = req.params;
+
+    console.log("**********************");
+    console.log("deleteUser " + id);
+    console.log("**********************");
+
+    // Delete user posts
+    PostModel.findAll(
+    {
+        where: { userId: id }  
+    })
+    .then(async(posts) => 
+    {
+        for(var post of posts)
+        {
+            console.log("Deleting Post : " + post.id);
+
+            // Delete comments
+            await CommentModel.destroy({where : {postId : post.id}})
+            .then(comments => 
+            {
+                console.log("deleted " + comments + " comments");
+            })
+            .catch((error) => 
+            {
+                console.log(error);
+                res.status(500).json(error)
+            })
+
+            // Delete post image if any
+            const fileName = post.id + ".jpg";
+            const filedir  = path.normalize(`${__dirname}/../../../frontend/public/uploads/post/${fileName}`);
+
+            console.log("Deleting file from post: " + fileName);
+            try 
+            {
+                fs.unlinkSync(filedir);
+            } 
+            catch (error) 
+            {
+                console.log("Unable to delete : " + filedir);
+            }
+
+            // Delete it
+            await PostModel.destroy({where : {Id : post.id}})
+            .then(posts => 
+            {
+                console.log("deleted " + posts + " posts");
+            })
+            .catch(error => res.status(500).json(error))
+        }
+    })
+    .catch(error => res.status(500).json(error))
+
+    //return;
+    
 
     UserModel.destroy({where : {id : id}})
     .then(user =>

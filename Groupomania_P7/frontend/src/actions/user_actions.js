@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const GET_USER           = "GET_USER";
+export const DELETE_USER        = "DELETE_USER";
 export const UPLOAD_PICTURE     = "UPLOAD_PICTURE";
 export const UPDATE_USER_NAME   = "UPDATE_USER_NAME";
 export const GET_USER_ERRORS    = "GET_USER_ERRORS";
@@ -22,6 +23,30 @@ export const getUser = (uid) =>
         })
         .catch((err) => console.log(err));
   };
+};
+
+// ================================
+// deleteUser
+// ================================
+export const deleteUser = (uid) => 
+{
+  console.log(uid);
+  console.log(`${process.env.REACT_APP_API_URL}api/user/${uid}`);
+
+  return async (dispatch) => 
+  {
+    await axios(
+      {
+        method: "delete",
+        url: `${process.env.REACT_APP_API_URL}api/user/${uid}`,
+      })
+        .then((res) => 
+        {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+  };
+
 };
 
 // ================================

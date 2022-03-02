@@ -47,11 +47,11 @@ app.get('/jwtid', requireAuth, (req, res) =>
     res.status(200).send(res.locals.user.id);
 });
 
+
 // ===================================================
 //                 Routes Definitions
 // ===================================================
 app.use('/api/user', userRoutes);
-
 app.use('/api/post', postRoutes);
 app.use('/api/comment', commentRoutes);
 

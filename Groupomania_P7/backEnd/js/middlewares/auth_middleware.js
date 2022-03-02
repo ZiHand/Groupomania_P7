@@ -16,6 +16,7 @@ module.exports.checkUser = (req, res, next) =>
         {
             if (error)
             {
+                console.log("checkUser FAILED");
                 res.locals.user = null;
                 next();
             }
@@ -29,6 +30,7 @@ module.exports.checkUser = (req, res, next) =>
                 } 
                 catch (error) 
                 {
+                    console.log("checkUser FAILED");
                     res.locals.user = null;
                     next();
                 }
