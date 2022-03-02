@@ -75,10 +75,8 @@ npm i -s react-router-dom
 ### Promise based HTTP client for the browser and node.js
 
 npm i -s axios
-
 npm i -s dotenv
 npm i -s js-cookie
-
 npm i -s react-redux
 npm i -s redux
 npm i -s redux-thunk
