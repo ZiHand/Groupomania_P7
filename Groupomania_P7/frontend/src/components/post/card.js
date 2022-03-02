@@ -65,7 +65,10 @@ const Card = ({post}) =>
                         !isEmpty(usersData[0]) && 
                             usersData.map((user) => 
                             {
-                                if (user.id === post.userId) return profil_pic + user.avatar_url;
+                                if (user.id === post.userId) 
+                                {
+                                    return (user.avatar_url ? profil_pic + user.avatar_url : "./img/default_avatar2.png");
+                                }
                                 else return null;
                             })
                             .join("")

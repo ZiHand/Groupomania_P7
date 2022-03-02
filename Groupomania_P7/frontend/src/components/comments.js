@@ -49,10 +49,12 @@ const Comments = ({post}) =>
                       src={
                         !isEmpty(usersData[0]) &&
                         usersData
-                          .map((user) => {
+                          .map((user) => 
+                          {
                             if (user.id === comment.userId) 
                             {
-                              return profil_pic + user.avatar_url;
+                              return (user.avatar_url ? profil_pic + user.avatar_url : "./img/default_avatar2.png")
+                              //return profil_pic + user.avatar_url;
                             }
                             else return null;
                           })

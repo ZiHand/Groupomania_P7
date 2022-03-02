@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import Axios from 'axios';
+import cookie from 'js-cookie';
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser } from "../../actions/user_actions";
 import { uploadPicture } from "../../actions/user_actions";
 import { updateUser } from './../../actions/user_actions';
-import Axios from 'axios';
-import cookie from 'js-cookie';
+
 
 const UdpateProfile = () => 
 {

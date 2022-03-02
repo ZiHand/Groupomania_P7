@@ -43,7 +43,7 @@ module.exports.getUser = (req, res) =>
 }
 
 // ===================================================
-// updateUser TODO:Check how to pass file
+// updateUser
 // ===================================================
 module.exports.updateUser = (req, res) => 
 {

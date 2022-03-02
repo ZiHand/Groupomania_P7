@@ -22,3 +22,19 @@
 {
   width: 100%;
 }
+
+.loader_spinner
+{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  min-width: 100%;
+  margin-top: 40%;
+
+  p
+  {
+    margin-left: 20px;
+  }
+
+  
+}
