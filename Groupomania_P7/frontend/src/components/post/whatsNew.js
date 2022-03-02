@@ -100,13 +100,17 @@ const WhatsNew = () =>
                     <div className="icon">
                         {isEmpty(video) && (
                         <>
-                            <img src="./img/icons/picture.svg" alt="img" />
+                            <div className='img_container'>
+                                <img src="./img/icons/picture.svg" alt="ajouter une image" title='Ajouter une image' />
+                            </div>
+                            <label htmlFor="file" className="pict_label" title='Ajouter une image'>Ajouter une image</label>
                             <input
-                            type="file"
-                            id="file-upload"
-                            name="file"
-                            accept=".jpg, .jpeg, .png, .gif"
-                            onChange={(e) => handlePicture(e)}
+                                type="file"
+                                id="file-upload"
+                                name="file"
+                                accept=".jpg, .jpeg, .png, .gif"
+                                onChange={(e) => handlePicture(e)}
+                                title='Ajouter une image'
                             />
                         </>
                         )}

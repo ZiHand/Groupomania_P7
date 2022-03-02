@@ -65,6 +65,11 @@ textarea
   }
 }
 
+textarea:placeholder-shown 
+{
+  font-style: italic;
+}
+
 ::-moz-selection 
 { 
   color: black;

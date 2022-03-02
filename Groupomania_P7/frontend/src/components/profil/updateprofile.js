@@ -49,9 +49,9 @@ const UdpateProfile = () =>
         
         if (password.length !== 0 && controlPassword.length !== 0 )
         {
-            if (password.length < 6)
+            if (password.length < 4)
             {
-                passwordError.innerHTML = "Les mots de passe doit faire 6 caracteres minimum";
+                passwordError.innerHTML = "Les mots de passe doit faire 4 caracteres minimum";
             }
             else if (password !== controlPassword)
             {
@@ -115,11 +115,11 @@ const UdpateProfile = () =>
 
             <label htmlFor="file" className="pict_label">Changer d'image</label>
             <input
-            type="file"
-            id="file"
-            name="file"
-            accept=".jpg, .jpeg, .png, .gif"
-            onChange={(e) => {setFile(e.target.files[0]);}}
+                type="file"
+                id="file"
+                name="file"
+                accept=".jpg, .jpeg, .png, .gif"
+                onChange={(e) => {setFile(e.target.files[0]);}}
             />
             
             <label htmlFor="pseudo" className="form_item">Changer de pseudo</label>
