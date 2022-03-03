@@ -44,22 +44,21 @@ nav {
       justify-content: space-between;
       font-size: 1.2rem;
 
-      .welcome {
+      .welcome 
+      {
         transform: translateY(2px);
 
-        /*@media screen and(max-width: 590px) 
+        h5 
         {
-          display: none;
-        }*/
-
-        h5 {
           //font-family: $font-3;
           color: black;
         }
       }
 
-      li {
-        img {
+      li 
+      {
+        img 
+        {
           height: 24px;
           width: 24px;
           cursor: pointer;
@@ -69,12 +68,14 @@ nav {
           height: 100%;
         }
 
-        .img_profile_header {
+        .img_profile_header 
+        {
           height: 40px;
           width: 40px;
           object-fit: contain;
           border-radius: 50%;
           box-shadow: 0 0 6px rgba(51, 51, 51, 0.363);
+          cursor: pointer;
         }
       }
     }

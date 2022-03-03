@@ -128,7 +128,8 @@
         padding: 0px;
         margin-top: 0px;
         cursor: pointer;
-        opacity: 0;
+        //opacity: 0;
+        color: transparent;
         height: 140px;
         max-width: 140px;
         z-index: 10;
@@ -139,6 +140,11 @@
           max-width: 100px;
           transform: translate(13px, -123px);
         }
+      }
+
+      input[type="file"]::-webkit-file-upload-button 
+      {
+        visibility: hidden;
       }
 
       .modo_container
