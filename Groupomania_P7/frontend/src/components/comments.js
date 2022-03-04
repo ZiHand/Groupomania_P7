@@ -5,6 +5,7 @@ import { addComment } from '../actions/post_actions';
 import { getPosts } from './../actions/post_actions';
 import EditComment from './post/editComment';
 
+
 const Comments = ({post}) => 
 {    
     const [text, setText] = useState("");
@@ -13,6 +14,9 @@ const Comments = ({post}) =>
     const userData    = useSelector((state) => state.userReducer);
     const dispatch    = useDispatch();
     const profil_pic  = "./uploads/profil/";
+
+    
+
 
     const handleComment = (e) => 
     {
@@ -46,15 +50,15 @@ const Comments = ({post}) =>
                 <div className="comment_header">
                   <div className='avatar_container'>
                     <img
-                      src={
-                        !isEmpty(usersData[0]) &&
+                      src=
+                      {
+                        !comment.userId ? "./img/default_avatar2.png" : !isEmpty(usersData[0]) &&
                         usersData
                           .map((user) => 
                           {
                             if (user.id === comment.userId) 
                             {
                               return (user.avatar_url ? profil_pic + user.avatar_url : "./img/default_avatar2.png")
-                              //return profil_pic + user.avatar_url;
                             }
                             else return null;
                           })
@@ -64,16 +68,18 @@ const Comments = ({post}) =>
                     />
                   </div>
                   <div className="pseudo">
-                    <h4>{!isEmpty(usersData[0]) &&
+                    <h4>{!comment.userId ? "Anonyme" : !isEmpty(usersData[0]) &&
                         usersData
-                          .map((user) => {
+                          .map((user) => 
+                          {
                             if (user.id === comment.userId) 
                             {
                               return user.pseudo;
-                            }
+                            } 
                             else return null;
                           })
-                          .join("")}
+                          .join("")
+                        }
                     </h4>
                   </div>
                   <span>{dateParser(comment.createdAt)}</span>

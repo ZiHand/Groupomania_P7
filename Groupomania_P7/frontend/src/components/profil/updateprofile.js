@@ -65,6 +65,8 @@ const UdpateProfile = () =>
             {
                 data.append("password", password);
             }
+
+            dispatch(updateUser(data, userData.id));
         }
 
         if (file)
@@ -77,7 +79,7 @@ const UdpateProfile = () =>
             error.maxSize = "";
         }
         
-        dispatch(updateUser(data, userData.id));
+        //dispatch(updateUser(data, userData.id));
     }
 
     // ================================
