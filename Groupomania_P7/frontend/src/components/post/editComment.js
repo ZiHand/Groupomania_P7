@@ -14,7 +14,7 @@ const EditComment = ({ comment, postId }) =>
 
   const checkKeyDown = (e) => 
   {
-    //if (e.code === 'Enter') e.preventDefault();
+    if (e.code === 'Enter') e.preventDefault();
   };
 
   const handleEdit = (e) => 

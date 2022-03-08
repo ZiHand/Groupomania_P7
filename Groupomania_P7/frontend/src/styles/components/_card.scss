@@ -84,14 +84,23 @@
 
 .card_content 
 {
+  
   margin-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
+  overflow: hidden;
 
   @media screen and(max-width: 590px) 
   {
     padding-left: 5px;
     padding-right: 5px;
+  }
+
+  p
+  {
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
   }
   
   .update_post

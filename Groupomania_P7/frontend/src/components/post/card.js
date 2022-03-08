@@ -38,8 +38,7 @@ const Card = ({post}) =>
     {
         !isEmpty(usersData[0]) && setIsLoading(false);
 
-        console.log(userData);
-    }, [usersData, userData])
+    }, [usersData])
 
     // ================================
     // cardRender
