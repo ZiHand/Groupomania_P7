@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getUsers } from "../actions/users_actions";
 
 export const GET_USER           = "GET_USER";
 export const DELETE_USER        = "DELETE_USER";
@@ -132,7 +133,7 @@ export const updateUser = (formData, id) =>
         }
 
         dispatch({ type: UPDATE_USER_NAME, payload: res.data.pseudo});
-        dispatch(getUser(id));
+        dispatch(getUsers());
       })
       .catch((err) => console.log(err));
   };

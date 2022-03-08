@@ -54,7 +54,7 @@ module.exports.updateUser = (req, res) =>
         return res.status(400).send("ID unknown : " + req.params.id);
 
 
-    UserModel.findByPk(req.params.id, {attributes : {exclude : ["createdAt", "updatedAt", "password"]}})
+    UserModel.findByPk(req.params.id, {attributes : {exclude : ["createdAt", "updatedAt", "password", "moderator"]}})
     .then(user =>
     {
         if (!user)
@@ -80,6 +80,18 @@ module.exports.updateUser = (req, res) =>
             user.password = bcrypt.hashSync(body.password, salt);
         }
 
+        
+
+        if (body.moderator)
+        {
+            
+            if (body.moderator === process.env.REACT_ADMIN_SECRET)
+            {
+                user.moderator = 1;
+            }
+        }
+
+        console.log(user);
         return user;
     })
     .then(updateUser =>

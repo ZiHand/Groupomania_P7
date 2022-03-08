@@ -1,10 +1,6 @@
 const Sequelize = require('sequelize');
-//import Log from './../../../frontend/src/components/log/index';
 const db        = require('../../config/db');
 const bcrypt    = require("bcrypt");
-const PostModel = require('./post_model');
-const CommentModel = require('./comment_model');
-const ModeratorModel = require('./moderator_model');
 
 // ===================================================
 //                 User Model
@@ -42,6 +38,12 @@ const userSchema = db.define('users',
         defaultValue    : "default_avatar2.png",
         allowNull       : true
     },
+    moderator : 
+    {
+        type            : Sequelize.DataTypes.INTEGER,
+        defaultValue    : 0,
+        allowNull       : true
+    },
 },
 {
     hooks: 
@@ -64,14 +66,6 @@ const userSchema = db.define('users',
             }
         }
     },
-
-    /*instanceMethods: 
-    {
-        validPassword: (password) => 
-        {
-            return bcrypt.compareSync(password, this.password);
-        }
-    }*/
 });
 
 // Adding an instance level method ASK PASCAL
@@ -90,22 +84,13 @@ userSchema.login = async function (email, password)
         throw new Error("email");
     }
 
-    /*if (!this.validPassword(password, user.password))
-    {
-        throw("Incorrect password.");
-    }*/
-
-    if (!bcrypt.compareSync(password, user.password)) // Should use validPassword() func / not working
+    if (!bcrypt.compareSync(password, user.password))
     {
         throw new Error("password");
     }
 
     return user;
 };
-
-//userSchema.hasMany(PostModel, { as: "posts" });
-//userSchema.hasMany(CommentModel, { as: "comments" });
-//userSchema.belongsTo(ModeratorModel, { foreignKey: "modId", as: "moderator" });
 
 // ===================================================
 //                 User Export

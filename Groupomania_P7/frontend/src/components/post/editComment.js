@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { deleteComment, editComment, getPosts } from "../../actions/post_actions";
 import { UidContext } from "../app_context";
 
@@ -10,6 +10,7 @@ const EditComment = ({ comment, postId }) =>
   const [text, setText]         = useState(comment.message);
   const uid                     = useContext(UidContext);
   const dispatch                = useDispatch();
+  const userData                = useSelector((state) => state.userReducer);
 
   const checkKeyDown = (e) => 
   {
@@ -40,7 +41,7 @@ const EditComment = ({ comment, postId }) =>
   {
     const checkAuthor = () => 
     {
-        if (uid.uid === comment.userId) 
+        if (uid.uid === comment.userId || userData.moderator > 0) 
         {
             setIsAuthor(true);
         }

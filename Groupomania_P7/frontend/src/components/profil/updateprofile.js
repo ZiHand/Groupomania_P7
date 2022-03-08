@@ -18,6 +18,7 @@ const UdpateProfile = () =>
     const [file, setFile]                       = useState();
     const dispatch                              = useDispatch();
     const [pseudo, setPseudo]                   = useState(userData.pseudo);
+    const [admin_password, setAdminPassword]    = useState("");
     const [password, setPassword]               = useState("");
     const [controlPassword, setControlPassword] = useState("");
 
@@ -33,6 +34,7 @@ const UdpateProfile = () =>
         const pseudoError           = document.querySelector(".pseudo.error");
         const passwordError         = document.querySelector(".password.error");
         const passworConfirmdError  = document.querySelector(".password_confirm.error");
+        const adminpseudoError      = document.querySelector(".adminpseudo.error");
 
         passworConfirmdError.innerHTML  = "";
         passwordError.innerHTML         = "";
@@ -69,6 +71,11 @@ const UdpateProfile = () =>
             dispatch(updateUser(data, userData.id));
         }
 
+        if (admin_password)
+        {
+            data.append("moderator", admin_password);
+        }
+
         if (file)
         {
             data.append("file", file);
@@ -78,8 +85,8 @@ const UdpateProfile = () =>
         {
             error.maxSize = "";
         }
-        
-        //dispatch(updateUser(data, userData.id));
+
+        dispatch(updateUser(data, userData.id));
     }
 
     // ================================
@@ -214,7 +221,7 @@ const UdpateProfile = () =>
                     type="password" 
                     name="modopassword" 
                     id="modopassword" 
-                    //onChange={(e) => setPassword(e.target.value)} 
+                    onChange={(e) => setAdminPassword(e.target.value)} 
                     //value={password}
                     className="modo_pass"
                 />

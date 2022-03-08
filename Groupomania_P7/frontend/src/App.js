@@ -56,17 +56,7 @@ const App = () =>
   return (
     <UidContext.Provider value={{uid}}>
       {
-        isLoading ? (
-          <>
-          <div className='loader_spinner'>
-            <i className="fas fa-spinner fa-spin"/>
-            <br/>
-            <p>Loading...</p>
-          </div>
-          </>
-        ) : (
-           <Routes />
-        )
+        <Routes />
       }
     </UidContext.Provider>
   );

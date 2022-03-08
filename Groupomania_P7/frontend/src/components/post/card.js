@@ -37,7 +37,9 @@ const Card = ({post}) =>
     useEffect(() => 
     {
         !isEmpty(usersData[0]) && setIsLoading(false);
-    }, [usersData])
+
+        console.log(userData);
+    }, [usersData, userData])
 
     // ================================
     // cardRender
@@ -143,7 +145,7 @@ const Card = ({post}) =>
             <>
             <div className="card_footer">
                 <div className="edit_container">
-                    <div className="edit_icon"> {userData.id === post.userId && (
+                    <div className="edit_icon"> {(userData.id === post.userId || userData.moderator > 0) && (
                         <img
                         onClick={() => setIsUpdated(!isUpdated)}
                         src="./img/icons/edit.svg"
@@ -152,7 +154,7 @@ const Card = ({post}) =>
                         />
                     )}
                     </div>
-                    <div className="delete_icon"> {userData.id === post.userId && (
+                    <div className="delete_icon"> {(userData.id === post.userId || userData.moderator > 0) && (
                         <DeleteCard id={post.id} />
                     )}
                     </div>
