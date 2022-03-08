@@ -97,7 +97,7 @@ const Comments = ({post}) =>
           <form action="" onSubmit={handleComment} className="comment_form">
               <input
                   type="text"
-                  name="text"cd ba
+                  name="text"
                   onChange={(e) => setText(e.target.value)}
                   value={text}
                   placeholder="Laisser un commentaire"
