@@ -26,3 +26,4 @@ yarn-error.log*
 
 # Own code
 ./public/uploads
+./public/uploads/profil
