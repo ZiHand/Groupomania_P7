@@ -18,7 +18,7 @@
 
 - install mySql and mysql workench according to your OS
 - import the provided sql file
-- copy
+
 
 cd ./backend
 npm install
@@ -31,6 +31,8 @@ npm start
 ### ==================== FRONTEND ========================
 
 # Frontend install:
+
+- copy the "uploads.zip" content in public/img/uploads
 
 cd ./frontend
 npm install
