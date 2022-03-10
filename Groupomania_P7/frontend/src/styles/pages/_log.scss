@@ -11,7 +11,8 @@
 
     //background-color: darksalmon;
 
-    @media screen and(max-width: 590px) {
+    @media screen and(max-width: 590px) 
+    {
       flex-direction: row;
     }
   }
@@ -22,9 +23,6 @@
     flex-direction: column;
     align-content: center;
     align-items: center;
-    
-    //width: 100%;
-    //background-color: blueviolet;
   }
 
   .form_container 

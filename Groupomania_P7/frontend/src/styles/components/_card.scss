@@ -98,9 +98,9 @@
 
   p
   {
-    display: flex;
-    flex-wrap: wrap;
-    height: auto;
+
+    text-align: start;
+    overflow-wrap: break-word;
   }
   
   .update_post
