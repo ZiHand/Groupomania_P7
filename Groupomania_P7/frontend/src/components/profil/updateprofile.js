@@ -59,17 +59,19 @@ const UdpateProfile = () =>
             if (password.length < 4)
             {
                 passwordError.innerHTML = "Les mots de passe doit faire 4 caracteres minimum";
+                return;
             }
             else if (password !== controlPassword)
             {
                 passworConfirmdError.innerHTML = "Les mots de passe ne correspondent pas";
+                return;
             }
             else
             {
                 data.append("password", password);
             }
 
-            dispatch(updateUser(data, userData.id));
+            //dispatch(updateUser(data, userData.id));
         }
 
         if (admin_password)

@@ -140,6 +140,7 @@ export const updateUser = (formData, id) =>
         {
           passwordError.innerHTML = "";
           pseudoError.innerHTML = "";
+          
         }
 
         dispatch({ type: UPDATE_USER_NAME, payload: res.data.pseudo});
