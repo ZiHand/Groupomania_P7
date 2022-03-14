@@ -76,10 +76,13 @@ module.exports.uploadErrors = (err) =>
 module.exports.updateErrors = (err) => 
 {
   console.log(err);
-    let errors = { pseudo: ''};
+    let errors = { pseudo: '', moderator: ''};
   
     if (err.message.includes('pseudo'))
       errors.pseudo = "Pseudo non valide ou deja utilisé.";
+
+    if (err.message.includes('moderator'))
+      errors.moderator = "Le password moderateur n'est pas bon.";
   
     return errors
 }

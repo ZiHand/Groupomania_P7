@@ -38,6 +38,7 @@ const UdpateProfile = () =>
 
         passworConfirmdError.innerHTML  = "";
         passwordError.innerHTML         = "";
+        adminpseudoError.innerHTML      = "";
 
         const data = new FormData();
         data.append("userId", userData.id);
@@ -225,8 +226,9 @@ const UdpateProfile = () =>
                     //value={password}
                     className="modo_pass"
                 />
-            <div className="password error form_item"></div>
+            <div className="adminpseudo error"></div>
             </div>
+            <br></br>
             <input type="submit" value="Envoyer" className="form_item"/>
             
         </form>

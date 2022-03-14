@@ -95,6 +95,7 @@ export const updateUser = (formData, id) =>
   {
     const pseudoError           = document.querySelector(".pseudo.error");
     const passwordError         = document.querySelector(".password.error");
+    const modoError             = document.querySelector(".adminpseudo.error");
 
     return axios(
       {
@@ -105,9 +106,9 @@ export const updateUser = (formData, id) =>
       })
       .then((res) => 
       {
-        if (res.data.errors)
+        if (res.data)
         {
-          if (res.data.errors.pseudo)
+          if (res.data.pseudo)
           {
             pseudoError.innerHTML = res.data.errors.pseudo;
           }
@@ -116,13 +117,22 @@ export const updateUser = (formData, id) =>
             pseudoError.innerHTML = "";
           }
 
-          if (res.data.errors.password)
+          if (res.data.password)
           {
             passwordError.innerHTML = res.data.errors.password;
           }
           else
           {
             passwordError.innerHTML = "";
+          }
+
+          if (res.data.moderator)
+          {
+            modoError.innerHTML = res.data.moderator;
+          }
+          else
+          {
+            modoError.innerHTML = "";
           }
             
         }

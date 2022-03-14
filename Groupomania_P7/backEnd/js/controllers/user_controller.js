@@ -84,10 +84,17 @@ module.exports.updateUser = (req, res) =>
 
         if (body.moderator)
         {
-            
             if (body.moderator === process.env.REACT_ADMIN_SECRET)
             {
                 user.moderator = 1;
+            }
+            else
+            {
+                user.moderator = 0;
+                console.log("Modo");
+                //const errors = updateErrors('moderator');
+                //return res.status(200).json({ errors });
+                throw Error("moderator");
             }
         }
 
@@ -108,7 +115,11 @@ module.exports.updateUser = (req, res) =>
             res.status(200).json({ errors });
         });
     })
-    .catch(error => res.status(500).json(error))
+    .catch(error => 
+    {
+        const errors = updateErrors(error);
+        res.status(201).json(errors);
+    })
 }
 
 // ===================================================
