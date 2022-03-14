@@ -2,7 +2,7 @@ const UserModel                         = require('../models/user_model');
 const UserValidation                    = require('../validations/user_validation');
 const jwt                               = require('jsonwebtoken');
 const { signUpErrors, signInErrors }    = require('../utils/errors_utils');
-const maxAge                            = 3 * 24 * 60 * 60 * 1000;
+const maxAge                            = 3 * 24 * 60 * 60 * 1000; // 3 days
 
 const db                = require("../../config/db");
 const User              = db.user;

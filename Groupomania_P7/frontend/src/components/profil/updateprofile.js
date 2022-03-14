@@ -4,7 +4,7 @@ import cookie from 'js-cookie';
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser } from "../../actions/user_actions";
 import { uploadPicture } from "../../actions/user_actions";
-import { updateUser } from './../../actions/user_actions';
+import { updateUser, getUser } from './../../actions/user_actions';
 
 
 const UdpateProfile = () => 
@@ -88,6 +88,7 @@ const UdpateProfile = () =>
         }
 
         dispatch(updateUser(data, userData.id));
+        window.location = "/";
     }
 
     // ================================

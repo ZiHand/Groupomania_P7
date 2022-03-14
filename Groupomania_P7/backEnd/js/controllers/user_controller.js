@@ -91,9 +91,6 @@ module.exports.updateUser = (req, res) =>
             else
             {
                 user.moderator = 0;
-                console.log("Modo");
-                //const errors = updateErrors('moderator');
-                //return res.status(200).json({ errors });
                 throw Error("moderator");
             }
         }
